@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const dataRoute = require('./Routes/user'); //Appel des routes utilisateurs
-const messageRoute = require('./Routes/message'); //Appel des routes messages
+const dataRoute = require('./routes/user'); //Appel des routes utilisateurs
+const messageRoute = require('./routes/message'); //Appel des routes messages
     
 
 app.use((req, res, next) => { // configuration des CORS, pour permettre à différentes adresse localhost de communiquer entre elles
