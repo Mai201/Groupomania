@@ -1,14 +1,12 @@
-# Groupomania
+# Back-end
 
-## Back-end
-
-### Utilisation de :
+## Utilisation de :
 
 - Node.js
 - Express
 - MySQL
   
-### Pré-requis:
+## Pré-requis:
 
 Se rendre dans le dossier Groupomania cloné à l'aide du terminal
 Connectez-vous à MySQL avec votre identifiant et mot de passe habituel
@@ -42,27 +40,3 @@ Enfin lancez le serveur avec:
 `nodemon server`
 
 Par défaut, le serveur est accessible en local via le port 3000
-
-## Front-end
-
-### Utilisation de :
-
-- Node.js
-- Framework Vue
-- Node-sass
-
-### Pré-requis:
-
-Dans le dossier frontend, lancez la commande suivante:
-`npm install`
-
-Une fois l'installation terminée, lancez le serveur avec:
-`npm run serve`
-
-Par défaut, le serveur est accessible en local via le port 8080
-
-## **Compte admin**
-
-Une fois un compte créé, retournez via SQL dans la base de données Groupomania et lancez:
-
-`mysql> UPDATE user SET isAdmin = ‘1’ WHERE id = ‘id_du_compte_sélectionné_comme_admin’;`
