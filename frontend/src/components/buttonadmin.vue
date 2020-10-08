@@ -1,8 +1,8 @@
 <template>
 <!--Composent "Button Admin"-->
 <div class="button">
-    <div v-if="data.username == 'admin'" id="toggle" class="btn-group dropleft">
-        <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div v-if="data.username == 'Admin'" id="toggle" class="btn-group dropleft">
+        <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span>{{data.username}}</span>
         </button>
         <div class="dropdown-menu col-sm">

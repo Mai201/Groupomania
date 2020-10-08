@@ -1,6 +1,6 @@
 <template>
 <div class="button">
-    <div v-if="data.username !== 'admin' && this.$localStorage !== null"  id="toggle" class="btn-group dropleft">
+    <div v-if="data.username !== 'Admin' && this.$localStorage !== null"  id="toggle" class="btn-group dropleft">
         <div v-for="usr in user" :key="usr.userId">
         <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span>{{usr.username}}</span>

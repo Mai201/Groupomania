@@ -67,4 +67,7 @@ Par défaut, le serveur est accessible en local via le port 8080
 
 Une fois un compte créé, retournez via SQL dans la base de données Groupomania et lancez:
 
-`mysql> UPDATE user SET isAdmin = ‘1’ WHERE id = ‘id_du_compte_sélectionné_comme_admin’;`
+`mysql> UPDATE user SET isAdmin = ‘1’ WHERE id = ‘id_du_compte_sélectionné_comme_admin’;` 
+
+
+Tout compte peut donc être sélectionné, néanmoins, pour une pleine optimisation de toutes les fonctionnalités, veuillez choisir 'Admin' comme username (sensible à la casse). 
