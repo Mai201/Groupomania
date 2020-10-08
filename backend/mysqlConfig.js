@@ -1,14 +1,14 @@
 const mysql = require('mysql');
 const dotenv = require("dotenv");
 
-dotenv.config({path: './.env'}); //masquage des informations sensibles comme les idantifiants et les mots de passes
+// pour masquage infos sensibles
+dotenv.config({path: './.env'});
 
 const NAME = process.env.NAME;
 const PASS = process.env.PASS;
 const HOST = process.env.HOST;
 
-//Connexion à la base de donnée Mysql
-
+// Connexion à base de données MySQL
 const db = mysql.createConnection({
     host     : HOST,
     user     : NAME,
@@ -20,7 +20,7 @@ db.connect((err) => {
     if (err) {
         throw err;
     }
-    console.log('Connecté a mysql avec l \'id '  + db.threadId);
+    console.log('Connecté a MySQL avec l \'id '  + db.threadId);
 });
 
 

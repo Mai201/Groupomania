@@ -2,9 +2,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 dotenv.config({path: './.env'});
-
 const TOKEN = process.env.TOKEN;
-
 
 // Authentification des requetes grâce au token
 
