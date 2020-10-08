@@ -11,7 +11,9 @@
 ### Pré-requis:
 
 Se rendre dans le dossier Groupomania cloné à l'aide du terminal 
+
 Connectez-vous à MySQL avec votre identifiant et mot de passe habituel 
+ 
 Une fois connecté, créez la base de données Groupomania:
 
 `mysql> CREATE DATABASE Groupomania;`
