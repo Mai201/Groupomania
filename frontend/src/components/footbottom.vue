@@ -29,7 +29,8 @@ position: fixed;
 }
 
 footer{
-    background-color: #292b2c;
+    // background-color: #292b2c;
+    background-color:white;
     
     
     @media screen and (min-width: 320px) and (max-width: 830px) {

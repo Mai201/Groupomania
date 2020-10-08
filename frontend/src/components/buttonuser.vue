@@ -25,7 +25,7 @@
 import axios from 'axios'
 
 export default {
-    name: 'buttondeco',
+    name: 'buttonuser',
     data(){
 
     return {
@@ -59,7 +59,7 @@ methods:{
 
       togglebutton : function(){
 
-          if(this.data !== undefined){// Fonction pour affichage du bouton
+          if(this.data !== undefined){ // Fonction pour affichage du bouton
               document.getElementById('toggle').style.display = 'none';
           }
       }

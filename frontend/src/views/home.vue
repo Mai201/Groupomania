@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Accueil></Accueil>>
+    <Accueil></Accueil>
     <buttonadmin></buttonadmin>
     <footbottom></footbottom>
   </div>

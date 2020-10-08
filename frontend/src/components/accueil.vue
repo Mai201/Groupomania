@@ -4,11 +4,7 @@
       <img src="../assets/icon.png" alt="Photo de la page d'accueil" />
     </div>
     <div class="logo">
-      <img
-        id="iconb"
-        alt="logo de l'entreprise"
-        src="../assets/icon-left-font-monochrome-black.svg"
-      />
+      <img id="iconb" alt="logo de l'entreprise" src="../assets/icon-left-font-monochrome-black.svg" />
     </div>
   </div>
 </template>

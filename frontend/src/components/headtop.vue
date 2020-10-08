@@ -4,18 +4,18 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" id="navv">
       <img id="icon" alt="logo de l'entreprise" src="../assets/icon-left-font-monochrome-white.svg" />
       <router-link id="routhome" to="/home">Groupomania</router-link>
-      <buttondeco></buttondeco>
+      <buttonuser></buttonuser>
     </nav>
   </div>
 </template>
 
 <script>
-import buttondeco from "./buttondeco.vue";
+import buttonuser from "./buttonuser.vue";
 
 export default {
   name: "headtop",
   components: {
-    buttondeco: buttondeco
+    buttonuser: buttonuser
   }
 };
 </script>
