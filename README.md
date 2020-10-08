@@ -10,8 +10,8 @@
   
 ### Pré-requis:
 
-Se rendre dans le dossier Groupomania cloné à l'aide du terminal
-Connectez-vous à MySQL avec votre identifiant et mot de passe habituel
+Se rendre dans le dossier Groupomania cloné à l'aide du terminal 
+Connectez-vous à MySQL avec votre identifiant et mot de passe habituel 
 Une fois connecté, créez la base de données Groupomania:
 
 `mysql> CREATE DATABASE Groupomania;`
@@ -61,7 +61,7 @@ Une fois l'installation terminée, lancez le serveur avec:
 
 Par défaut, le serveur est accessible en local via le port 8080
 
-## **Compte admin**
+## ***NB: Compte admin***
 
 Une fois un compte créé, retournez via SQL dans la base de données Groupomania et lancez:
 
