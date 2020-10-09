@@ -20,11 +20,11 @@ router.get('/createtables', dataCtlr.createDataTable);
 router.post('/signup', createAccountLimiter, dataCtlr.signup);
 router.post('/login', dataCtlr.login);
 
-router.get('/getusers', dataCtlr.getUsers);
-router.get('/getoneuser/:id', dataCtlr.getOneUser)
+router.get('/getusers', dataCtlr.getUsers); // ajouter auth ici
+router.get('/getoneuser/:id', dataCtlr.getOneUser) // ajouter auth ici
 
 router.post('/deleteUser', auth, dataCtlr.deleteUser);
-router.post('/updateuser/:id', dataCtlr.updateUser);
+router.post('/updateuser/:id', dataCtlr.updateUser); // ajouter auth ici
 
 
 module.exports = router;

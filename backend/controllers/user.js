@@ -82,7 +82,7 @@ exports.login = (req, res, next) => {
       )
     } else 
     {
-      res.status(500).json({ message: "Entrez votre email et votre mot de passe" })
+      res.status(500).json({ message: "Entrez votre username et votre mot de passe" })
     }
 },
 
