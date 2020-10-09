@@ -56,7 +56,7 @@ export default {
 @media (min-width: 810px) {
   .vertical-nav {
     position: fixed;
-    top: 150px;
+    top: 15%;
     left: 0;
     width: 155px;
     height: 100%;
