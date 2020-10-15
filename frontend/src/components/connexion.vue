@@ -35,7 +35,7 @@
       <button type="submit" class="btn btn-dark">Connexion</button>
       <p>
         Pas encore inscrit ?
-        <a href="/#/inscription">Inscrivez-vous</a>
+        <a href="#/inscription">Inscrivez-vous</a>
       </p>
     </form>
   </div>
@@ -86,10 +86,8 @@ export default {
             token = user.token;
             if (user.status == "admin") {
               window.location.href = "http://localhost:8080//#/dashadmin";
-              location.reload(true);
             } else {
               window.location.href = "http://localhost:8080//#/mur";
-              location.reload(true);
             }
           })
           .catch(() => {

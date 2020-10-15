@@ -94,7 +94,7 @@ export default {
        deco: function(){//Déconnection
             if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
               this.$localStorage.remove('user');
-              window.location.href = " http://localhost:8080//#/home";
+              window.location.href = " http://localhost:8080//#/";
             }
     },
      showdiv: function() {//Affichage de l'encadré qui aide l'utilisateur à choisir son password

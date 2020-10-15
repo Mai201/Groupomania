@@ -145,7 +145,7 @@ span{
   text-transform: uppercase;
   font-weight: bolder;
   margin-top: 10px;
-  color: rgb(240, 210, 136)
+  color: black;
 }
 
 .datt{

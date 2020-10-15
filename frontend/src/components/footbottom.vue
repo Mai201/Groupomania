@@ -29,7 +29,7 @@ position: fixed;
 }
 
 footer{
-    background-color: #292b2c;
+    background-color: #17a2b8;
     
     
     @media screen and (min-width: 320px) and (max-width: 830px) {
@@ -45,7 +45,7 @@ footer{
 }
 
 a{
-    color: red;
+    color: black;
    
 }
 
@@ -56,7 +56,7 @@ a:hover{
 #foot{
     position: relative;
     bottom: 10px;
-    color: #FFF;
+    color: black;
 }
 
 

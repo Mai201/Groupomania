@@ -52,7 +52,7 @@ methods:{
          deco: function(){// Fonction pour deconnecter la session de l'application
             if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
               this.$localStorage.remove('user');
-              window.location.href = "http://localhost:8080//#/home";
+              window.location.href = "http://localhost:8080//#/";
               location.reload(true);
             } 
       },
@@ -78,6 +78,7 @@ span{
 
 button{
     margin-bottom: 10px;
+    color:black;
 }
 
 .btn-group{

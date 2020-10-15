@@ -1,7 +1,7 @@
 <template>
   <!--Barre latérales de navigation-->
-  <nav id="navv" class="navbar navbar-expand-lg navbar-light bg-info">
-    <a class="navbar-brand" href="#"></a>
+  <nav id="navv" class="navbar navbar-expand-lg navbar-dark">
+    <!-- <a class="navbar-brand" href="#"></a> -->
     <button
       class="navbar-toggler"
       type="button"
@@ -50,13 +50,20 @@ export default {
 
 <style lang="scss" scoped>
 .dropdown-item {
-  color: black;
+  @media (min-width: 810px) {
+    color:black;
+  }
+  color:white;
+}
+
+#navv {
+  background-color: black;
 }
 
 @media (min-width: 810px) {
   .vertical-nav {
     position: fixed;
-    top: 15%;
+    top: 30%;
     left: 0;
     width: 155px;
     height: 100%;

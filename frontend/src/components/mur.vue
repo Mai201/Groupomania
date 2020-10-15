@@ -45,7 +45,7 @@
         </button>
       </div>
     </div>
-    <h5>Écrire votre message</h5>
+    <h4>Écrire votre nouveau message</h4>
     <form id="formtog" method="POST" class="from-group" @submit.prevent="sendMessage">
       <div class="form-group">
         <label for="message">
@@ -59,7 +59,7 @@
           ></textarea>
         </label>
       </div>
-      <button type="submit" id="envoi" class="btn btn-dark">Envoyer</button>
+      <button type="submit" id="envoi" class="btn btn-submit">Envoyer</button>
     </form>
   </div>
 </template>
@@ -147,7 +147,7 @@ export default {
       //Déconnection
       if (window.confirm("Voulez-vous vraiment vous déconnecter ?")) {
         this.$session.remove("user");
-        window.location.href = "http://localhost:8080//#/home";
+        window.location.href = "http://localhost:8080//#/";
       }
     },
 
@@ -234,6 +234,14 @@ span {
 .text,
 .datt {
   color: #fff;
+}
+
+.btn {
+  color:black;
+}
+
+.btn-submit {
+  background-color: #17a2b8;
 }
 
 .bienvuenu {

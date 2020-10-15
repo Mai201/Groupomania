@@ -132,7 +132,7 @@ methods:{
    deco: function(){ // Fonction pour déconnecter la session de l'application
       if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
         this.$localStorage.remove('user');
-        window.location.href = "http://localhost:8080//#/home";
+        window.location.href = "http://localhost:8080//#/";
       } 
     },
 
@@ -241,8 +241,12 @@ span{
     text-transform: uppercase;
 }
 
-.color{
-   color: #FFF;
+// .color{
+//    color: black;
+// }
+
+.btn {
+    color:black;
 }
 
 .users{
@@ -302,15 +306,18 @@ width: 5%;
 }
 
 #table{
-    background-color:rgb(82, 81, 81) ;
+    background-color:rgb(82, 81, 81);
+    color:white;
 }
 
 #table2{
-    background-color:#6902ad; 
+    background-color:#392546; 
+    color: white;
 }
 
 #table3{
     background-color: #21971d;
+    color:black;
 }
 
 </style>

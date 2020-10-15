@@ -102,7 +102,7 @@ export default {
       deco: function(){//Déconnection
             if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
               this.$session.remove('user');
-              window.location.href = "http://localhost:8080//#/home";
+              window.location.href = "http://localhost:8080//#/";
             } 
       }
     }
@@ -155,7 +155,7 @@ span{
   text-transform: uppercase;
   font-weight: bolder;
   margin-top: 10px;
-  color: rgb(240, 210, 136)
+  color:  rgb(240, 210, 136);
 }
 
 .datt{

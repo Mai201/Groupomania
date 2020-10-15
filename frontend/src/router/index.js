@@ -19,9 +19,9 @@ Vue.use(VueRouter)
   },
   {
     path: '/', 
-    name: 'Home',
-    // route pour home
-    component: () => import('../views/home.vue')
+    name: 'WelcomePage',
+    // route pour welcome page
+    component: () => import('../views/welcomepage.vue')
 
   },
   {
