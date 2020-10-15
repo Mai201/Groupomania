@@ -23,9 +23,6 @@
 
 <script>
 
-import axios from 'axios'
-
-
 export default {
     name: 'moncompte',
     data(){
@@ -39,7 +36,7 @@ export default {
 mounted(){
     //Appel à API pour affichage des infos utilisateur
     let data = JSON.parse(this.$localStorage.get('user'))
-     axios.get(`http://localhost:3000/api/getoneuser/${data.userId}`)
+     this.$axios.get(`/getoneuser/${data.userId}`)
         .then(response => {
           console.log(response.data)
           this.user = response.data
@@ -54,7 +51,7 @@ methods:{
     deleteUser : function () {//Fonction permettant à utilisateur de supprimer son compte 
         let token = this.data.token
         if(confirm('Voulez-vous vraiment supprimer le compte ?'),confirm('Attention, cette opération est irreversible !')){
-             axios.post(`http://localhost:3000/api/deleteUser`, {
+             this.$axios.post(`/deleteUser`, {
                  userId: this.data.userId
         },
         {

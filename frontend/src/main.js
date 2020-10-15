@@ -1,7 +1,9 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+// import Vuex from 'vuex' pas utilisé
 import App from './App.vue'
 import router from './router'
+import axios from "axios";
+
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap'
@@ -18,7 +20,16 @@ Vue.use(VueSessionStorage)
 library.add(faTrash)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.use(Vuex)
+
+// Vue.use(Vuex) pas utilisé
+
+// Configuration d'Axios
+axios.defaults.baseURL = 'http://localhost:3000/api/';
+const TOKEN = sessionStorage.getItem('token')
+if (TOKEN) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + TOKEN;
+}
+Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 

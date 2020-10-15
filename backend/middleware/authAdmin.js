@@ -4,17 +4,17 @@ const dotenv = require('dotenv');
 dotenv.config({path: './.env'});
 const TOKEN = process.env.TOKEN;
 
-// Authentification des requetes grâce au token
+// Authentification ADMIN des requetes grâce au token
 
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, TOKEN);
     const userId = decodedToken.userId;
-    // const status = decodedToken.status;
+    const status = decodedToken.status;
 
-    if (req.body.userId && req.body.userId !== userId) {
-      throw 'Invalid user ID';
+    if (status !== 'admin' && req.body.userId && req.body.userId !== userId) {
+      throw 'Invalid user ID (not admin)';
     } else {
       next();
     }

@@ -24,8 +24,6 @@
 
 <script>
 
-import axios from 'axios'
-
 let url = document.location.href;
 let idme = url.substring(37, 40);
 console.log(idme)
@@ -51,7 +49,7 @@ export default {
     mounted (){ 
         
         //Appel à l'API du message selectionné 
-        axios.get(`http://localhost:3000/api/getonemessage/${idme}`)
+        this.$axios.get(`/getonemessage/${idme}`)
         .then(response => {
           console.log(response.data)
           this.msg = response.data
@@ -62,13 +60,10 @@ export default {
         .catch(error => console.log(error))
 
         //Appel à API des réponses en rapport au premier message 
-        axios.get(`http://localhost:3000/api/getresponse/${idme}`)
+        this.$axios.get(`/getresponse/${idme}`)
         .then(response => {
           console.log(response.data)
           this.view = response.data
-          
-        
-         
         })
         .catch(error => console.log(error))
 

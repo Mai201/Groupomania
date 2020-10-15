@@ -76,10 +76,6 @@
 
 <script>
 
-
-import axios from 'axios'
-
-
 export default {
     name: 'moncompte',
     data(){
@@ -97,7 +93,7 @@ export default {
 },
   mounted (){ 
         //Appel à API pour affichage de tous les messages
-        axios.get('http://localhost:3000/api/getmessages')
+        this.$axios.get('/getmessages')
         .then(response => {
           console.log(response.data)
           this.msg = response.data
@@ -107,7 +103,7 @@ export default {
         .catch(error => console.log(error))
 
         //Appel à API pour affichage de tous les utilisateurs
-        axios.get('http://localhost:3000/api/getusers')
+        this.$axios.get('/getusers')
         .then(res=> {
           console.log(res.data)
           this.usr = res.data
@@ -117,7 +113,7 @@ export default {
         .catch(error => console.log(error))
 
         //Appel à API pour affichage de toutes les réponses
-        axios.get('http://localhost:3000/api/getallresponses')
+        this.$axios.get('/getallresponses')
         .then(response => {
           console.log(response.data)
           this.res = response.data
@@ -142,7 +138,7 @@ methods:{
 
     if(confirm('Voulez-vous vraiment supprimer le compte ?'),confirm('Attention, cette opération est irreversible !')){
 
-             axios.post(`http://localhost:3000/api/deleteUser`, {
+             this.$axios.post(`/deleteUser`, {
 
                 userId:test
         },
@@ -169,7 +165,7 @@ methods:{
         if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !')){
 
              console.log(deletid)
-             axios.post(`http://localhost:3000/api/deletemessage`, {
+             this.$axios.post(`/deletemessage`, {
 
                 id:deletid
         },
@@ -196,7 +192,7 @@ methods:{
         if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !')){
 
              console.log(deletid)
-             axios.post(`http://localhost:3000/api/deleteresponse`, {
+             this.$axios.post(`/deleteresponse`, {
 
                 id:deletid
         },

@@ -65,7 +65,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 let moment = require("moment");
 moment.locale("fr"); //Appel du module moment.js pour affichage à quel moment le message a été écris
@@ -86,8 +85,8 @@ export default {
   },
   mounted() {
     //Appel à API pour affichage de tous les messages
-    axios
-      .get("http://localhost:3000/api/getmessages")
+    this.$axios
+      .get("/getmessages")
       .then(response => {
         console.log(response.data);
         this.msg = response.data;
@@ -96,8 +95,8 @@ export default {
 
     let data = JSON.parse(this.$localStorage.get("user"));
     //Appel à l'Api pour l'affichage des informations utilisateurs
-    axios
-      .get(`http://localhost:3000/api/getoneuser/${data.userId}`)
+    this.$axios
+      .get(`/getoneuser/${data.userId}`)
       .then(response => {
         console.log(response.data);
         this.user = response.data;
@@ -115,9 +114,9 @@ export default {
           "Vous n'avez rien écrit; vous ne pouvez pas envoyer un message vide !"
         );
       } else {
-        axios
+        this.$axios
           .post(
-            "http://localhost:3000/api/postmessage",
+            "/postmessage",
             {
               message: this.message,
               token: this.data.token,
@@ -160,9 +159,9 @@ export default {
         confirm("Etes-vous sûr de vouloir supprimer ce message ?") &&
         confirm("Attention, cela effacera définitivement le message")
       ) {
-        axios
+        this.$axios
           .post(
-            "http://localhost:3000/api/deletemessage",
+            "/deletemessage",
             {
               id: idmess
             },

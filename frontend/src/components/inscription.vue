@@ -44,8 +44,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
     name: 'inscription',
     data(){
@@ -64,7 +62,7 @@ export default {
         }else if (this.password != this.password2){//Renforcement sécu, mdp x2
           alert('Les deux mots de passe ne sont pas identiques !')
         }else {
-        axios.post('http://localhost:3000/api/signup', {
+        this.$axios.post('/signup', {
           email: this.email,
           username: this.username,
           password: this.password,

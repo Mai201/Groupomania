@@ -22,8 +22,6 @@
 
 <script>
 
-import axios from 'axios'
-
 export default {
     name: 'buttonuser',
     data(){
@@ -32,39 +30,41 @@ export default {
         data:JSON.parse(this.$localStorage.get('user')),
         userId:"",
         user:""
+        }
+    },
+    
+    methods:{
+        getOneUser(){
+            //Appel à API pour affichage utilisateur
+            let data = JSON.parse(this.$localStorage.get('user'))
+            this.$axios.get(`/getoneuser/${data.userId}`)
+            .then(response => {
+                console.log(response.data)
+                this.user = response.data
+            })
+            .catch(error => console.log(error)) 
+        },
+
+        deco: function(){// Fonction pour deconnecter la session de l'application
+        if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
+        {
+            this.$localStorage.remove('user');
+            window.location.href = "http://localhost:8080//#/";
+            location.reload(true);
+        } 
+    },
+
+        togglebutton : function(){
+        if(this.data !== undefined)
+        { // Fonction pour affichage du bouton
+            document.getElementById('toggle').style.display = 'none';
+        }
     }
 },
-mounted(){
 
-     //Appel à API pour affichage utilisateur
-     let data = JSON.parse(this.$localStorage.get('user'))
-     axios.get(`http://localhost:3000/api/getoneuser/${data.userId}`)
-        .then(response => {
-          console.log(response.data)
-          this.user = response.data
-        
-         
-        })
-        .catch(error => console.log(error)) 
-
-},
-methods:{
-         deco: function(){// Fonction pour deconnecter la session de l'application
-            if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
-              this.$localStorage.remove('user');
-              window.location.href = "http://localhost:8080//#/";
-              location.reload(true);
-            } 
-      },
-
-      togglebutton : function(){
-
-          if(this.data !== undefined){ // Fonction pour affichage du bouton
-              document.getElementById('toggle').style.display = 'none';
-          }
-      }
-}
-
+    mounted(){
+        this.getOneUser(); // récupération de l'utilisateur avant affichage de la page
+    },
 }
 
 </script>

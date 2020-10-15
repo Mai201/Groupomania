@@ -1,9 +1,9 @@
 <template>
 <!--Footer-->
     <div class="containerfooter">
-        <footer class="page-footer font-small special-color-dark pt-4">
+        <footer class="page-footer font-small special-color-dark pt-1">
             <div class="container">
-                <div id="foot" class="footer-copyright text-center py-3">Copyright © 2020
+                <div id="foot" class="footer-copyright text-center py-4">Copyright © 2020
                     <a href="https://groupomania.com/">Groupomania</a>
                 </div>
             </div>
@@ -32,16 +32,12 @@ footer{
     background-color: #17a2b8;
     
     
-    @media screen and (min-width: 320px) and (max-width: 830px) {
-         
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            
-        
+    @media screen and (min-width: 320px) and (max-width: 830px) {    
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;   
     }
-
 }
 
 a{

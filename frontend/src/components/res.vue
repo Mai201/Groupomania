@@ -24,10 +24,6 @@
 
 <script>
 
-
-import axios from 'axios'
-
-
 let url = document.location.href;
 let idme = url.substring(32, 35);
 console.log(idme)
@@ -54,7 +50,7 @@ export default {
     mounted (){ 
         
         //Appel à API pour affichage du message à modifier 
-        axios.get(`http://localhost:3000/api/getonemessage/${idme}`)
+        this.$axios.get(`/getonemessage/${idme}`)
         .then(response => {
           console.log(response.data)
           this.msg = response.data
@@ -72,7 +68,7 @@ export default {
         if (this.message === ""){
           alert('Vous n\'avez rien écrit; vous ne pouvez pas envoyer un message vide !')
         } else{
-           axios.post('http://localhost:3000/api/updatemessage',
+           this.$axios.post('/updatemessage',
         {
           message: this.message,
           token: this.data.token,

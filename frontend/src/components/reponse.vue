@@ -25,8 +25,6 @@
 
 <script>
 
-import axios from 'axios'
-
 let url = document.location.href;
 let idme = url.substring(37, 40);
 
@@ -52,7 +50,7 @@ export default {
     mounted (){ 
         
         //Appel à API pour afficher le message auquel l'utilisateur souhaite répondre
-        axios.get(`http://localhost:3000/api/getonemessage/${idme}`)
+        this.$axios.get(`/getonemessage/${idme}`)
         .then(response => {
           console.log(response.data)
           this.msg = response.data
@@ -79,7 +77,7 @@ export default {
         if (this.message === ""){
           alert('Vous n\'avez rien écrit; vous ne pouvez pas envoyer une réponse vide !')
         } else{
-           axios.post('http://localhost:3000/api/responsemessage',
+           this.$axios.post('/responsemessage',
         {
           response: this.message,
           token: this.data.token,

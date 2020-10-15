@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "connexion",
@@ -61,9 +60,8 @@ export default {
           "Veuillez entrer votre email et votre mot de passe pour vous connecter"
         );
       } else {
-        axios
-          .post(
-            "http://localhost:3000/api/login",
+        this.$axios
+          .post("/login",
             {
               username: this.username,
               password: this.password

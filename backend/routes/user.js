@@ -3,6 +3,7 @@ const router = express.Router();
 const rateLimit = require('express-rate-limit');
 const dataCtlr = require('../controllers/user');
 const auth = require('../middleware/auth');
+const authAdmin = require('../middleware/authAdmin');
 
 
 const createAccountLimiter = rateLimit ( { // limitation nombre de création de comptes /même adresse IP (limite = 5)
@@ -20,11 +21,11 @@ router.get('/createtables', dataCtlr.createDataTable);
 router.post('/signup', createAccountLimiter, dataCtlr.signup);
 router.post('/login', dataCtlr.login);
 
-router.get('/getusers', dataCtlr.getUsers); // ajouter auth ici
-router.get('/getoneuser/:id', dataCtlr.getOneUser) // ajouter auth ici
+router.get('/getusers', dataCtlr.getUsers); // authAdmin error: implémenter sur axios (dashadmin)
+router.get('/getoneuser/:id', dataCtlr.getOneUser); // auth error : implémenter sur axios (buttonuser+ mur.vue)
 
-router.post('/deleteUser', auth, dataCtlr.deleteUser);
-router.post('/updateuser/:id', dataCtlr.updateUser); // ajouter auth ici
+router.post('/deleteUser', auth, dataCtlr.deleteUser); // implémenter distinction sur axios membre/admin (dashadmin)
+router.post('/updateuser/:id', auth, dataCtlr.updateUser); // auth error: implémenter sur axios (updateuse)
 
 
 module.exports = router;

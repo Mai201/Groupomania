@@ -46,9 +46,6 @@ let url = document.location.href;
 let id = url.substring(39, 42);
 
 
-
-import axios from 'axios'
-
 export default {
     name: 'updateuse',
     data(){
@@ -70,7 +67,7 @@ export default {
         }else if (this.password != this.password2){
           alert('Les deux mots de passe ne sont pas identiques !')
         }else {
-        axios.post(`http://localhost:3000/api/updateuser/${id}`, {
+        this.$axios.post(`/updateuser/${id}`, {
           email: this.email,
           username: this.username,
           password: this.password,
