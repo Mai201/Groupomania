@@ -1,12 +1,13 @@
 const multer = require('multer');
 
 // permet d'ajouter des images à nos requêtes POST
-// permet avec fs de modifier et supprimer images 
+// permet également avec fs de modifier images 
 
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  'image/gif': 'gif'
 };
 
 const storage = multer.diskStorage({

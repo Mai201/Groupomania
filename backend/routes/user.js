@@ -21,11 +21,10 @@ router.get('/createtables', dataCtlr.createDataTable);
 router.post('/signup', createAccountLimiter, dataCtlr.signup);
 router.post('/login', dataCtlr.login);
 
-router.get('/getusers', dataCtlr.getUsers); // authAdmin error: implémenter sur axios (dashadmin)
-router.get('/getoneuser/:id', dataCtlr.getOneUser); // auth error : implémenter sur axios (buttonuser+ mur.vue)
+router.get('/getusers', authAdmin, dataCtlr.getUsers); // présent dans dashadmin
+router.get('/getoneuser/:id', auth, dataCtlr.getOneUser);
 
 router.post('/deleteUser', auth, dataCtlr.deleteUser); // implémenter distinction sur axios membre/admin (dashadmin)
-router.post('/updateuser/:id', auth, dataCtlr.updateUser); // auth error: implémenter sur axios (updateuse)
-
+router.post('/updateuser/:id', auth, dataCtlr.updateUser);
 
 module.exports = router;

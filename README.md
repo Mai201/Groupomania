@@ -26,7 +26,7 @@ Une fois dans la database 'Groupomania', suivez les instructions suivantes:
 
 2. Créez la table 'messages'
 
-`mysql> CREATE TABLE messages (idMESSAGES int AUTO_INCREMENT, idUSERS int NOT NULL, message text NOT NULL, username varchar(100) NOT NULL, created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (idMESSAGES), FOREIGN KEY (idUSERS) REFERENCES user (id) ON DELETE CASCADE)ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;`
+`mysql> CREATE TABLE messages (idMESSAGES int AUTO_INCREMENT, idUSERS int NOT NULL, message text NOT NULL, image varchar(255), username varchar(100) NOT NULL, created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (idMESSAGES), FOREIGN KEY (idUSERS) REFERENCES user (id) ON DELETE CASCADE)ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;`
 
 3. Créez la table 'responses'
 
