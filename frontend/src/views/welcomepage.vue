@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home"><h1>Bienvenue sur le réseau social de</h1>
     <Accueil></Accueil>
     <footbottom></footbottom>
   </div>

@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <headtop></headtop>
     <espace></espace>
     <router-view />
   </div>
 </template>
 <script>
-import headtop from "./components/headtop.vue";
+
 import espace from "./components/espace.vue";
 
 export default {
@@ -15,7 +14,6 @@ export default {
     return {};
   },
   components: {
-    headtop: headtop,
     espace: espace
   }
 };
