@@ -17,7 +17,10 @@
                         <textarea  class="form-control" name="message" id="message" cols="50" rows="5" v-model= "message"></textarea>
                     </label>
                 </div>
-                <button  type="submit" id="envoi" class="btn btn-dark">Envoyer la réponse</button>
+                <div class="button">
+                  <input type="file" @change="onFileChange" name="image" id="image" accept="image/png, image.jpeg, image.gif"/>
+                  <button type="submit" id="envoi" class="btn btn-dark">Envoyer la réponse</button>
+                </div>
             </form> 
         </div> 
     </div>
@@ -232,6 +235,15 @@ h5{
 #form{
   position: relative;
   bottom: 150px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+#image {
+  margin-top: 60px;
 }
 
 </style>

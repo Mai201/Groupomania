@@ -23,9 +23,9 @@ export default {
 
 .containerfooter{
 position: fixed;
-    bottom :0;
-    width: 100%;
-    height: 60px;
+bottom :0;
+width: 100%;
+height: 50px;
 }
 
 footer{

@@ -69,10 +69,9 @@ export default {
             {
               headers: {
                 "Content-type": "application/json",
-                Authorization: `Bearer${token}` //Renvoi du token par API en cas d'authentification
+                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
               }
-            }
-          )
+            })
           .then(response => {
             //Si authentification réussie, autorisation d'accès au mur pour utilisateur
             // ou au tableau de bord admin pour l'administrateur de l'appli

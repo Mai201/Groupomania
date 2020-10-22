@@ -93,7 +93,15 @@ export default {
 },
   mounted (){ 
         //Appel à API pour affichage de tous les messages
-        this.$axios.get('/getmessages')
+        let token = this.data.token;
+        this.$axios.get('/getmessages',
+        {
+            headers: 
+            {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+            }
+        })
         .then(response => {
           console.log(response.data)
           this.msg = response.data
@@ -103,7 +111,14 @@ export default {
         .catch(error => console.log(error))
 
         //Appel à API pour affichage de tous les utilisateurs
-        this.$axios.get('/getusers')
+        this.$axios.get('/getusers', 
+        {
+            headers: 
+            {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+            }
+        })
         .then(res=> {
           console.log(res.data)
           this.usr = res.data
@@ -113,7 +128,14 @@ export default {
         .catch(error => console.log(error))
 
         //Appel à API pour affichage de toutes les réponses
-        this.$axios.get('/getallresponses')
+        this.$axios.get('/getallresponses', 
+        {
+            headers: 
+            {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+            }
+        })
         .then(response => {
           console.log(response.data)
           this.res = response.data
@@ -143,10 +165,11 @@ methods:{
                 userId:test
         },
         {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization' : `Bearer ${token}`
-              }
+            headers: 
+            {
+                'Content-type': 'application/json',
+                'Authorization' : `Bearer ${token}`
+            }
         })
        .then (() => { 
                     

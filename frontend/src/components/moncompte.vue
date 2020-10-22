@@ -35,8 +35,16 @@ export default {
 },
 mounted(){
     //Appel à API pour affichage des infos utilisateur
-    let data = JSON.parse(this.$localStorage.get('user'))
-     this.$axios.get(`/getoneuser/${data.userId}`)
+        let data = JSON.parse(this.$localStorage.get('user'))
+        let token = this.data.token;
+        this.$axios.get(`/getoneuser/${data.userId}`, 
+        {
+            headers: 
+            {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+            }
+        })
         .then(response => {
           console.log(response.data)
           this.user = response.data

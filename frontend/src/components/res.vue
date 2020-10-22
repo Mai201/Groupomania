@@ -16,6 +16,7 @@
             <textarea  class="form-control" name="message" id="message" cols="50" rows="5" v-model= "message"></textarea>
           </label>
         </div>
+        <input type="file" @change="onFileChange" name="image" id="image">
         <button  type="submit" id="envoi" class="btn btn-dark">Envoyer</button>
       </form> 
     </div> 
@@ -54,9 +55,6 @@ export default {
         .then(response => {
           console.log(response.data)
           this.msg = response.data
-          
-        
-         
         })
         .catch(error => console.log(error))
     },

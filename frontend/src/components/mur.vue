@@ -12,6 +12,7 @@
       <div id="messdiv" class="msg" v-for="mess in msg" :key="mess.idMESSAGES">
         <p class="nameus">{{mess.username}}</p>
         <p class="text">{{mess.message}}</p>
+        <img :src="'http://localhost:3000/images/' + mess.image" alt="image">
         <p class="datt">{{moment(mess.created_at).fromNow()}}</p>
         <button
           @click="updatemess(mess.idMESSAGES)"
@@ -46,20 +47,22 @@
       </div>
     </div>
     <h4>Écrire votre nouveau message</h4>
-    <form id="formtog" method="POST" class="from-group" @submit.prevent="sendMessage">
+    <form id="formtog" method="POST" class="from-group" @submit.prevent="sendMessage" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="message">
+        <label for="message">Message</label>
           <textarea
             class="form-control"
             name="message"
             id="message"
             cols="50"
             rows="5"
-            v-model="message"
-          ></textarea>
-        </label>
+            v-model="message">
+            </textarea>
       </div>
-      <button type="submit" id="envoi" class="btn btn-submit">Envoyer</button>
+      <div class="button">
+        <input type="file" @change="onFileChange" name="image" id="image" accept="image/png, image/jpeg, image/gif">
+        <button type="submit" id="envoi" class="btn btn-dark">Envoyer</button>
+      </div>
     </form>
   </div>
 </template>
@@ -67,7 +70,7 @@
 <script>
 
 let moment = require("moment");
-moment.locale("fr"); //Appel du module moment.js pour affichage à quel moment le message a été écris
+moment.locale("fr"); //Appel du module moment.js pour affichage à quel moment le message a été écrit
 
 export default {
   name: "mur",
@@ -80,13 +83,22 @@ export default {
       moment: moment,
       imess: "",
       update: "",
-      user: ""
+      user: "",
+      image: "",
     };
   },
   mounted() {
     //Appel à API pour affichage de tous les messages
+    let token= this.data.token;
     this.$axios
-      .get("/getmessages")
+      .get("/getmessages", 
+        {
+          headers: 
+          {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+          }
+        })
       .then(response => {
         console.log(response.data);
         this.msg = response.data;
@@ -96,7 +108,14 @@ export default {
     let data = JSON.parse(this.$localStorage.get("user"));
     //Appel à l'Api pour l'affichage des informations utilisateurs
     this.$axios
-      .get(`/getoneuser/${data.userId}`)
+      .get(`/getoneuser/${data.userId}`, 
+      {
+        headers: 
+        {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+          }
+      })
       .then(response => {
         console.log(response.data);
         this.user = response.data;
@@ -109,19 +128,20 @@ export default {
       let token = this.data.token;
       let idUSERS = this.data.userId;
       let userName = this.data.username;
-      if (this.message === "") {
+      if (this.message.length ===0) {
         alert(
-          "Vous n'avez rien écrit; vous ne pouvez pas envoyer un message vide !"
+          "Vous n'avez rien écrit: vous ne pouvez pas envoyer un message vide !"
         );
       } else {
         this.$axios
           .post(
             "/postmessage",
             {
-              message: this.message,
-              token: this.data.token,
+              token: token,
               idUSERS: idUSERS,
-              username: userName
+              username: userName,
+              message: this.message,
+              image: this.image
             },
             {
               headers: {
@@ -139,6 +159,19 @@ export default {
           .catch(() => {
             console.log("le message n'a pas été envoyé");
           });
+      }
+    },
+
+    onFileChange: function(e) {
+      const files = e.target.files || e.dataTransfer.files;
+      if(files.length === 0)
+      {
+        return;
+      }
+      const reader = new FileReader();    
+      reader.readAsDataURL(files[0]);
+      reader.onload = () => {
+        this.image = reader.result
       }
     },
 
@@ -230,6 +263,20 @@ span {
   text-transform: uppercase;
 }
 
+img {
+  height: 80px;
+}
+
+.form-control {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+.form-group {
+  margin-top: 80px;
+  height: 20px;
+}
+
 .text,
 .datt {
   color: #fff;
@@ -239,8 +286,8 @@ span {
   color:black;
 }
 
-.btn-submit {
-  background-color: #17a2b8;
+.btn-dark {
+  color:white;
 }
 
 .bienvuenu {
@@ -251,15 +298,15 @@ span {
   border: 1px solid lightgray;
   width: 50%;
   line-height: 15px;
-  height: 120px;
+  height: 180px;
   position: relative;
   top: 70px;
   margin-right: auto;
   background-color: #392546;
   border-radius: 5px;
   margin-left: auto;
-  margin-top: 10px;
-  margin-bottom: 80px;
+  margin-top: 20px;
+  margin-bottom: 100px;
   @media screen and (min-width: 320px) and (max-width: 830px) {
     width: 95%;
     height: 150px;
@@ -293,7 +340,7 @@ span {
 
 h4 {
   position: relative;
-  top: 30px;
+  top: 70px;
 }
 
 h5 {
@@ -311,11 +358,8 @@ h5 {
 #envoi {
   position: relative;
   top: 30px;
-}
-
-.form-group {
-  position: relative;
-  top: 150px;
+  height: 50px;
+  margin-top: 60px;
 }
 
 #deco {
@@ -363,6 +407,17 @@ h5 {
     right: 70px;
     bottom: 40px;
   }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 150px;
+}
+
+#image {
+  margin-top: 90px;
+  margin-left: 10px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 500px) {

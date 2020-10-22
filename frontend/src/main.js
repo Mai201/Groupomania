@@ -25,10 +25,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Configuration d'Axios
 axios.defaults.baseURL = 'http://localhost:3000/api/';
-const TOKEN = sessionStorage.getItem('token')
-if (TOKEN) {
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + TOKEN;
-}
+// utilisation prototype pour gen /vue
 Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
