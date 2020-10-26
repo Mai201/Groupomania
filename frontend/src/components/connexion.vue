@@ -55,11 +55,11 @@ export default {
     envoi: function() {
       //envoie informations de connexion à API pour authentification
       let token = "";
-      if (this.username == "" || this.password == "") {
-        alert(
-          "Veuillez entrer votre email et votre mot de passe pour vous connecter"
-        );
-      } else {
+      if (this.username == "" || this.password == "") 
+      {
+        alert("Veuillez entrer votre email et votre mot de passe pour vous connecter");
+      } else 
+      {
         this.$axios
           .post("/login",
             {
@@ -67,31 +67,34 @@ export default {
               password: this.password
             },
             {
-              headers: {
+              headers: 
+              {
                 "Content-type": "application/json",
                 Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
               }
             })
-          .then(response => {
-            //Si authentification réussie, autorisation d'accès au mur pour utilisateur
-            // ou au tableau de bord admin pour l'administrateur de l'appli
-            let reponse = response.data;
-            alert("Connexion réussie !");
-            let userObject = JSON.stringify(reponse);
-            this.$localStorage.set("user", userObject);
-            let user = JSON.parse(this.$localStorage.get("user"));
-            token = user.token;
-            if (user.status == "admin") {
-              window.location.href = "http://localhost:8080//#/dashadmin";
-            } else {
-              window.location.href = "http://localhost:8080//#/mur";
-            }
-          })
-          .catch(() => {
-            console.log("la connexion a échoué"); //En cas d'echec, envoie information à utilisateur
-            document.querySelector("#smallpass").innerHTML =
-              "pseudo ou mot de passe incorrect";
-          });
+        .then(response => 
+        {
+          //Si authentification réussie, autorisation d'accès au mur pour utilisateur
+          // ou au tableau de bord admin pour l'administrateur de l'appli
+          let reponse = response.data;
+          alert("Connexion réussie !");
+          let userObject = JSON.stringify(reponse);
+          this.$localStorage.set("user", userObject);
+          let user = JSON.parse(this.$localStorage.get("user"));
+          token = user.token;
+          if (user.status == "admin") 
+          {
+            window.location.href = "http://localhost:8080//#/dashadmin";
+          } else 
+          {
+            window.location.href = "http://localhost:8080//#/mur";
+          }
+        })
+        .catch(() => {
+          console.log("la connexion a échoué"); //En cas d'echec, envoie information à utilisateur
+          document.querySelector("#smallpass").innerHTML = "pseudo ou mot de passe incorrect";
+        });
       }
     }
   }

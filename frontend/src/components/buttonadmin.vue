@@ -26,29 +26,27 @@
 export default {
     name: 'buttonadmin',
     data(){
-
-    return {
-        data:JSON.parse(this.$localStorage.get('user')),
-        userId:""
-    }
-},
-methods:{
-         deco: function(){
-            if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
-              this.$localStorage.remove('user');
-              window.location.href = "http://localhost:8080//#/";
-              location.reload(true);
+        return {
+            data:JSON.parse(this.$localStorage.get('user')),
+            userId:""
+        }
+    },
+    methods:{
+        deco: function(){
+            if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
+            {
+                this.$localStorage.remove('user');
+                window.location.href = "http://localhost:8080//#/";
+                location.reload(true);
             } 
-      },
-
-      togglebutton : function(){
-
-          if(this.data.status !== 'admin'){
-              document.getElementById('toggle').style.display = 'none';
-          }
-      },
-}
-
+        },
+        togglebutton : function(){
+            if(this.data.status !== 'admin')
+            {
+                document.getElementById('toggle').style.display = 'none';
+            }
+        },
+    }
 }
 
 </script>

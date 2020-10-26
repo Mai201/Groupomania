@@ -26,14 +26,13 @@
 export default {
     name: 'moncompte',
     data(){
-
-    return {
-        data:JSON.parse(this.$localStorage.get('user')),
-        userId:"",
-        user:""
-    }
-},
-mounted(){
+        return {
+            data:JSON.parse(this.$localStorage.get('user')),
+            userId:"",
+            user:""
+        }
+    },
+    mounted(){
     //Appel à API pour affichage des infos utilisateur
         let data = JSON.parse(this.$localStorage.get('user'))
         let token = this.data.token;
@@ -51,56 +50,50 @@ mounted(){
         
          
         })
-        .catch(error => console.log(error)) 
-
-},
-methods:{
-
-    deleteUser : function () {//Fonction permettant à utilisateur de supprimer son compte 
-        let token = this.data.token
-        if(confirm('Voulez-vous vraiment supprimer le compte ?'),confirm('Attention, cette opération est irreversible !')){
-             this.$axios.post(`/deleteUser`, {
-                 userId: this.data.userId
-        },
-        {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization' : `Bearer ${token}`
-              }
-        })
-       .then (() => { 
+        .catch(error => console.log(error))
+    },
+    methods:{
+        deleteUser : function () { //Fonction permettant à utilisateur de supprimer son compte 
+            let token = this.data.token
+            if(confirm('Voulez-vous vraiment supprimer le compte ?'),confirm('Attention, cette opération est irreversible !'))
+            {
+                this.$axios.post(`/deleteUser`, 
+                {
+                    userId: this.data.userId
+                },
+                {
+                    headers: 
+                    {
+                        'Content-type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+                .then (() => { 
                     this.$localStorage.remove('user')
                     document.getElementById('moncompte').style.display = 'none'
                     alert('votre compte a bien été supprimé !')
                     window.location.href = " http://localhost:8080//#/"
-                    
-       })
-       .catch(() =>{
-         console.log('Votre compte n\'a pas pu être supprimé !')
-       }) 
-        }
-    },
+                })
+                .catch(() =>{
+                    console.log('Votre compte n\'a pas pu être supprimé !')
+                }) 
+            }
+        },
 
-         deco: function(){// Fonction qui permet à l'utilisateur de se déconnecter
-            if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
+        deco: function(){ // Fonction qui permet à l'utilisateur de se déconnecter
+            if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
+            {
               this.$localStorage.remove('user');
               window.location.href = " http://localhost:8080//#/";
               location.reload(true);
             } 
-      },
-
-      updateuser : function() {// Fonction qui permet à l'utilisateur de modifier ses informations
-
-          let iduser = this.data.userId
-
-         window.location.href = `http://localhost:8080//#/updateuser?id=${iduser}`
-         location.reload(true);
-
-
-      }
-}
-
-
+        },
+        updateuser : function() { // Fonction qui permet à l'utilisateur de modifier ses informations
+            let iduser = this.data.userId
+            window.location.href = `http://localhost:8080//#/updateuser?id=${iduser}`
+            location.reload(true);
+        }
+    }
 }
 
 </script>

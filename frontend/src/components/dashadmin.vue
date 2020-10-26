@@ -91,152 +91,145 @@ export default {
        
     }
 },
-  mounted (){ 
-        //Appel à API pour affichage de tous les messages
-        let token = this.data.token;
-        this.$axios.get('/getmessages',
+    mounted (){ 
+    //Appel à API pour affichage de tous les utilisateurs
+    let token = this.data.token;
+
+    this.$axios.get('/getusers', 
+    {
+        headers: 
         {
-            headers: 
-            {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
-            }
-        })
-        .then(response => {
-          console.log(response.data)
-          this.msg = response.data
-        
-         
-        })
-        .catch(error => console.log(error))
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+        }
+    })
+    .then(res=> {
+        console.log(res.data)
+        this.usr = res.data
+      
+       
+    })
+    .catch(error => console.log(error))
 
-        //Appel à API pour affichage de tous les utilisateurs
-        this.$axios.get('/getusers', 
+    //Appel à API pour affichage de tous les messages
+    this.$axios.get('/getmessages',
+    {
+        headers: 
         {
-            headers: 
-            {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
-            }
-        })
-        .then(res=> {
-          console.log(res.data)
-          this.usr = res.data
-        
-         
-        })
-        .catch(error => console.log(error))
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+        }
+    })
+    .then(response => {
+    console.log(response.data)
+    this.msg = response.data
+    })
+    .catch(error => console.log(error))
 
-        //Appel à API pour affichage de toutes les réponses
-        this.$axios.get('/getallresponses', 
+    //Appel à API pour affichage de toutes les réponses
+    this.$axios.get('/getallresponses', 
+    {
+        headers: 
         {
-            headers: 
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+        }
+    })
+    .then(response => {
+        console.log(response.data)
+        this.res = response.data
+    })
+    .catch(error => console.log(error))
+},
+    methods: {
+        deco: function(){ // Fonction pour déconnecter la session de l'application
+            if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
             {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
-            }
-        })
-        .then(response => {
-          console.log(response.data)
-          this.res = response.data
-        
-         
-        })
-        .catch(error => console.log(error))
-
-    },
-methods:{
-
-   deco: function(){ // Fonction pour déconnecter la session de l'application
-      if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
-        this.$localStorage.remove('user');
-        window.location.href = "http://localhost:8080//#/";
-      } 
-    },
-
-    deleteusr: function(param) {// Fonction pour suppression comptes utilisateurs
-        let token = this.data.token
-        let test = param
-
-    if(confirm('Voulez-vous vraiment supprimer le compte ?'),confirm('Attention, cette opération est irreversible !')){
-
-             this.$axios.post(`/deleteUser`, {
-
-                userId:test
+            this.$localStorage.remove('user');
+            window.location.href = "http://localhost:8080//#/";
+            } 
         },
-        {
-            headers: 
+
+        deleteusr: function(param) { // Fonction pour suppression comptes utilisateurs
+            let token = this.data.token
+            let test = param
+
+            if(confirm('Voulez-vous vraiment supprimer le compte ?'),confirm('Attention, cette opération est irreversible !'))
             {
-                'Content-type': 'application/json',
-                'Authorization' : `Bearer ${token}`
-            }
-        })
-       .then (() => { 
-                    
+                this.$axios.post(`/deleteUser`, 
+                {
+                    userId:test
+                },
+                {
+                    headers: 
+                    {
+                        'Content-type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+                .then (() => { 
                     alert('le compte a bien été supprimé !') 
-                    location.reload(true)      
-       })
-       .catch(() =>{
-         console.log('le compte n\'a pas pu être supprimé !')
-       }) 
-        }
-    },
-    deletemsg: function(del) {//Fonction de suppression des messages 
-        let token = this.data.token
-        let deletid = del
-
-        if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !')){
-
-             console.log(deletid)
-             this.$axios.post(`/deletemessage`, {
-
-                id:deletid
+                    location.reload(true)
+                })
+                .catch(() =>{
+                console.log('le compte n\'a pas pu être supprimé !')
+                }) 
+            }
         },
-        {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization' : `Bearer ${token}`
-              }
-        })
-       .then (() => { 
-                    
+        deletemsg: function(del) { //Fonction de suppression des messages 
+            let token = this.data.token
+            let deletid = del
+
+            if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !'))
+            {
+                console.log(deletid)
+                this.$axios.post(`/deletemessage`, 
+                {
+                    id:deletid
+                },
+                {
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+                .then (() => { 
                     alert('le message a bien été supprimé !') 
                     location.reload(true)      
-       })
-       .catch(() =>{
-         console.log('le message n\'a pas pu être supprimé !')
-       }) 
-        }
-    },
-      deleteresp: function(resp) {//Fonction de suppression des réponses
-        let token = this.data.token
-        let deletid = resp
-
-        if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !')){
-
-             console.log(deletid)
-             this.$axios.post(`/deleteresponse`, {
-
-                id:deletid
+                })
+                .catch(() =>{
+                    console.log('le message n\'a pas pu être supprimé !')
+                }) 
+            }
         },
-        {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization' : `Bearer ${token}`
-              }
-        })
-       .then (() => { 
-                    
+        deleteresp: function(resp) { //Fonction de suppression des réponses
+            let token = this.data.token
+            let deletid = resp
+
+            if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !'))
+            {
+                console.log(deletid)
+                this.$axios.post(`/deleteresponse`, 
+                {
+                    id:deletid
+                },
+                {
+                    headers: 
+                    {
+                        'Content-type': 'application/json',
+                        'Authorization' : `Bearer ${token}`
+                    }
+                })
+                .then (() => {
                     alert('le message a bien été supprimé !') 
                     location.reload(true)      
-       })
-       .catch(() =>{
-         console.log('le message n\'a pas pu être supprimé !')
-       }) 
+                })
+                .catch(() =>{
+                console.log('le message n\'a pas pu être supprimé !')
+                }) 
+            }
         }
     }
-}
-
 }
 </script>
 
@@ -259,10 +252,6 @@ h3{
 span{
     text-transform: uppercase;
 }
-
-// .color{
-//    color: black;
-// }
 
 .btn {
     color:black;

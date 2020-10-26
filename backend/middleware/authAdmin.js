@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId;
     const status = decodedToken.status;
 
-    if (status !== 'admin' && req.body.userId && req.body.userId != userId) 
+    if (status !== 'admin') 
     {
       throw 'Invalid user ID (not admin)';
     } else {

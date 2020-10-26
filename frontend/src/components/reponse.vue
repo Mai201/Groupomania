@@ -37,80 +37,70 @@ moment.locale('fr');
 
 
 export default {
-       name:'reponse',
-    data() {
-
-      return {
-        data:JSON.parse(this.$localStorage.get('user')),
-        message:"",
-        msg:"",
-        date:"",
-        moment: moment,
-        idme: idme
-
-      }
+  name:'reponse',
+  data() {
+    return {
+      data:JSON.parse(this.$localStorage.get('user')),
+      message:"",
+      msg:"",
+      date:"",
+      moment: moment,
+      idme: idme
+    }
+  },
+  mounted (){ 
+  //Appel à API pour afficher le message auquel l'utilisateur souhaite répondre
+    this.$axios.get(`/getonemessage/${idme}`)
+    .then(response => {
+      console.log(response.data)
+      this.msg = response.data})
+      .catch(error => console.log(error))
+  },
+  methods: {
+    deco: function(){ //Déconnexion
+      if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
+      {
+        this.$session.remove('user');
+        window.location.href = "http://localhost:8080//#/";
+      } 
     },
-    mounted (){ 
-        
-        //Appel à API pour afficher le message auquel l'utilisateur souhaite répondre
-        this.$axios.get(`/getonemessage/${idme}`)
-        .then(response => {
-          console.log(response.data)
-          this.msg = response.data
-          
-        
-         
-        })
-        .catch(error => console.log(error))
-    },
-    methods: {
-        deco: function(){//Déconnection
-            if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
-              this.$session.remove('user');
-              window.location.href = "http://localhost:8080//#/";
-            } 
-      },
-
-      reponsemess: function () {//Fonction envoyant réponse utilisateur au serveur 
-
-          
-        let token = this.data.token
-        let idUSERS = this.data.userId
-        let userName = this.data.username
-        if (this.message === ""){
-          alert('Vous n\'avez rien écrit; vous ne pouvez pas envoyer une réponse vide !')
-        } else{
-           this.$axios.post('/responsemessage',
+    reponsemess: function () { //Fonction envoyant réponse utilisateur au serveur   
+      let token = this.data.token
+      let idUSERS = this.data.userId
+      let userName = this.data.username
+      if (this.message === "")
+      {
+        alert('Vous n\'avez rien écrit; vous ne pouvez pas envoyer une réponse vide !')
+      } else 
+      {
+        this.$axios.post('/responsemessage',
         {
           response: this.message,
           token: this.data.token,
           idUSERS : idUSERS,
           username: userName,
           idMESSAGES:idme
-
-        },{
-          headers: {
+        },
+        {
+          headers: 
+          {
             'Content-type': 'application/json',
             'Authorization' : `Bearer ${token}`
-              }
+          }
         })
         .then (() => { 
-                    console.log('réponse envoyé')
-                    this.message ==="";
-                    alert('votre reponse a bien été envoyée !')
-                    window.location.href = `http://localhost:8080//#/viewresp?id=${idme}`
-
-                    
-       })
-       .catch(() =>{
-         console.log('la réponse n\'a pas été envoyée')
-       }) 
-        }
-       
-      }
-
+          console.log('réponse envoyé')
+          this.message ==="";
+          alert('votre reponse a bien été envoyée !')
+          window.location.href = `http://localhost:8080//#/viewresp?id=${idme}`            
+        })
+        .catch(() =>{
+          console.log('la réponse n\'a pas été envoyée')
+        }) 
       }
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

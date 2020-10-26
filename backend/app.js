@@ -17,6 +17,10 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json({limit:"20mb"})); // limite pour ne pas surcharger DB
 app.use(express.json({limit:"20mb"}));
+
+// app.use(bodyParser.json()); // limite pour ne pas surcharger DB
+// app.use(express.json());
+
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/', dataRoute);

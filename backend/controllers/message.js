@@ -50,25 +50,41 @@ exports.getoneMessage = (req, res, next) => {
 
 // Poster message 
 exports.postmessage = (req, res, next) => {
-  const message= req.body.message;
-  const idUSERS= req.body.idUSERS;
-  const username= req.body.username;
-  // const imageObject = req.file ?
-  // {
-  //   ...JSON.parse(req.body.image),
-  //   image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  // } : {...req.body};
-  // err filename: ajouter condition ternaire pour regarder si déjà fichier avant, ou non
-  // const image= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-
-  db.query(`INSERT INTO messages SET ?`, message, idUSERS, username, image, (error, result, field) => {
-    if (error) 
+  if (!req.body.image)
+  {
+    const message=
     {
-      return res.status(400).json({ error })
+      idUSERS:req.body.idUSERS,
+      message:req.body.message,
+      image: null,
+      username:req.body.username
     }
-    return res.status(201).json({ message: 'Votre message a été posté !' })
-  })
-}
+    db.query(`INSERT INTO messages SET ?`, message, (error, result, field) => {
+      if (error) 
+      {
+        return res.status(400).json({ error })
+      }
+      return res.status(201).json({ message: 'Votre message a été posté sans image !' })
+    })
+  } else 
+  {
+    const message=
+    {
+      idUSERS:req.body.idUSERS,
+      message:req.body.message,
+      image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+      username:req.body.username
+    }
+    db.query(`INSERT INTO messages SET ?`, message, (error, result, field) => {
+      if (error) 
+      {
+        return res.status(400).json({ error })
+      }
+      return res.status(201).json({ message: 'Votre message a été posté !' })
+    })
+  }
+},
+
 // Effacer message
 exports.deleteMessage = (req, res, next) => {
   db.query('DELETE FROM messages WHERE idMESSAGES= ?', req.body.id, (error, results, fields) => {

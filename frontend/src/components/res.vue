@@ -34,72 +34,69 @@ moment.locale('fr');
 
 
 export default {
-    name:'mur',
-    data() {
-
-      return {
-        data:JSON.parse(this.$localStorage.get('user')),
-        message:"",
-        msg:"",
-        date:"",
-        moment: moment,
-        idme: idme
-        
-      }
-    },
-
-    mounted (){ 
-        
-        //Appel à API pour affichage du message à modifier 
-        this.$axios.get(`/getonemessage/${idme}`)
-        .then(response => {
-          console.log(response.data)
-          this.msg = response.data
-        })
-        .catch(error => console.log(error))
-    },
-    methods: {
-      
-      updatemessage : function(){//Fonction qui envoi la modification du message au serveur
-        let token = this.data.token
-        let imess = idme
-        if (this.message === ""){
-          alert('Vous n\'avez rien écrit; vous ne pouvez pas envoyer un message vide !')
-        } else{
-           this.$axios.post('/updatemessage',
-        {
-          message: this.message,
-          token: this.data.token,
-          id: imess
-
-        },{
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization' : `Bearer ${token}`
-              }
-        })
-        .then (() => { 
-                    console.log('message modifié')
-                    this.message ==="";
-                    alert('votre message a bien été modifié !')
-                    window.location.href = "http://localhost:8080//#/mur"
-
-                    
-       })
-       .catch(() =>{
-         console.log('le message n\'a pas été modifié')
-       }) 
-        }
-       
-      },
-
-      deco: function(){//Déconnection
-            if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
-              this.$session.remove('user');
-              window.location.href = "http://localhost:8080//#/";
-            } 
-      }
+  name:'mur',
+  data() {
+    return {
+      data:JSON.parse(this.$localStorage.get('user')),
+      message:"",
+      msg:"",
+      date:"",
+      moment: moment,
+      idme: idme  
     }
+  },
+
+  mounted (){ 
+  //Appel à API pour affichage du message à modifier 
+    this.$axios.get(`/getonemessage/${idme}`)
+    .then(response => 
+    {
+      console.log(response.data)
+      this.msg = response.data
+    })
+    .catch(error => console.log(error))
+  },
+  methods: {
+    updatemessage : function(){ //Fonction qui envoi la modification du message au serveur
+      let token = this.data.token
+      let imess = idme
+      if (this.message === "")
+      {
+        alert('Vous n\'avez rien écrit; vous ne pouvez pas envoyer un message vide !')
+      } else
+      {
+        this.$axios.post('/updatemessage',
+          {
+            message: this.message,
+            token: this.data.token,
+            id: imess
+          },
+          {
+            headers: 
+            {
+              'Content-type': 'application/json',
+              'Authorization' : `Bearer ${token}`
+            }
+          })
+        .then (() => { 
+            console.log('message modifié')
+            this.message ==="";
+            alert('votre message a bien été modifié !')
+            window.location.href = "http://localhost:8080//#/mur"           
+          })
+        .catch(() =>{
+          console.log('le message n\'a pas été modifié')
+        }) 
+      } 
+    },
+    deco: function(){ //Déconnexion
+      if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
+      {
+        this.$session.remove('user');
+        window.location.href = "http://localhost:8080//#/";
+      } 
+    }
+  }
 }
 </script>
 

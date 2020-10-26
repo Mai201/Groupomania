@@ -39,37 +39,37 @@ export default {
             let data = JSON.parse(this.$localStorage.get('user'))
             let token= this.data.token;
             this.$axios
-                .get(`/getoneuser/${data.userId}`, 
+            .get(`/getoneuser/${data.userId}`, 
+            {
+                headers: 
                 {
-                    headers: 
-                    {
-                        "Content-type": "application/json",
-                        Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
-                    }
-                })
-                .then(response => {
-                    console.log(response.data)
-                    this.user = response.data
-                })
-                .catch(error => console.log(error)) 
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
+                }
+            })
+            .then(response => {
+                console.log(response.data)
+                this.user = response.data
+            })
+            .catch(error => console.log(error)) 
         },
 
-        deco: function(){// Fonction pour deconnecter la session de l'application
-        if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
-        {
-            this.$localStorage.remove('user');
-            window.location.href = "http://localhost:8080//#/";
-            location.reload(true);
-        } 
-    },
+        deco: function(){ // Fonction pour deconnecter la session de l'application
+            if(window.confirm('Voulez-vous vraiment vous déconnecter ?'))
+            {
+                this.$localStorage.remove('user');
+                window.location.href = "http://localhost:8080//#/";
+                location.reload(true);
+            } 
+        },
 
         togglebutton : function(){
-        if(this.data !== undefined)
-        { // Fonction pour affichage du bouton
-            document.getElementById('toggle').style.display = 'none';
+            if(this.data !== undefined)
+            { // Fonction pour affichage du bouton
+                document.getElementById('toggle').style.display = 'none';
+            }
         }
-    }
-},
+    },
 
     mounted(){
         this.getOneUser(); // récupération de l'utilisateur avant affichage de la page

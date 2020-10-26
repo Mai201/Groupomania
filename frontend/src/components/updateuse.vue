@@ -47,69 +47,70 @@ let id = url.substring(39, 42);
 
 
 export default {
-    name: 'updateuse',
-    data(){
-      return{
-        data:JSON.parse(this.$localStorage.get('user')),
-        userId:"",
-        email:"",
-        username:"",
-        password:"",
-        password2:"",
-        id: id   
-       }
-    },
-    methods:{
-      changeuser : function () {//Fonction envoyant changements utilisateur au serveur
-        let token = this.data.token
-        if (this.email == "" || this.username == "" || this.password == ""  ){
-          alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')
-        }else if (this.password != this.password2){
-          alert('Les deux mots de passe ne sont pas identiques !')
-        }else {
+  name: 'updateuse',
+  data(){
+    return{
+      data:JSON.parse(this.$localStorage.get('user')),
+      userId:"",
+      email:"",
+      username:"",
+      password:"",
+      password2:"",
+      id: id   
+     }
+  },
+  methods:{
+    changeuser : function () { //Fonction envoyant changements utilisateur au serveur
+      let token = this.data.token
+      if (this.email == "" || this.username == "" || this.password == ""  ){
+        alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')
+      } else if (this.password != this.password2){
+        alert('Les deux mots de passe ne sont pas identiques !')
+      } else 
+      {
         this.$axios.post(`/updateuser/${id}`, {
           email: this.email,
           username: this.username,
           password: this.password,
         },
         {
-          headers: {
+          headers: 
+          {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`
-              }
+          }
         })
-       .then (() => {
-         console.log('vos informations ont bien été modifiées !')
-         alert('vos informations ont bien été modifiées !')
-         window.location.href = "http://localhost:8080//#/compte"
-         })
-       .catch(() => console.log('Erreur: les informations n\'ont pas été modifiées')) 
-        }
-        
-        
-      },
-       deco: function(){//Déconnection
-            if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
-              this.$localStorage.remove('user');
-              window.location.href = " http://localhost:8080//#/";
-            }
+        .then (() => {
+        console.log('vos informations ont bien été modifiées !')
+        alert('vos informations ont bien été modifiées !')
+        window.location.href = "http://localhost:8080//#/compte"
+        })
+        .catch(() => console.log('Erreur: les informations n\'ont pas été modifiées')) 
+      }    
     },
-     showdiv: function() {//Affichage de l'encadré qui aide l'utilisateur à choisir son password
-        document.getElementById('showfocus').style.display = 'block';
-      },
+    deco: function(){ //Déconnexion
+      if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){
+        this.$localStorage.remove('user');
+        window.location.href = " http://localhost:8080//#/";
+      }
+    },
+    showdiv: function() { //Affichage de l'encadré qui aide l'utilisateur à choisir son password
+      document.getElementById('showfocus').style.display = 'block';
+    },
 
-      maskdiv: function() {//Masquage de l'encadré précédent
-        document.getElementById('showfocus').style.display = 'none';
-      },
-      verif: function() {//Vérification du mot de passe
-        if (this.password != this.password2){
-          document.getElementById('confirm').innerHTML = 'Veuillez entrer le même mot de passe'
-        } else {
-          document.getElementById('confirm').innerHTML = ''
-        }
-      } 
-    }
+    maskdiv: function() { //Masquage de l'encadré précédent
+      document.getElementById('showfocus').style.display = 'none';
+    },
 
+    verif: function() { //Vérification du mot de passe
+      if (this.password != this.password2){
+        document.getElementById('confirm').innerHTML = 'Veuillez entrer le même mot de passe'
+      } else 
+      {
+        document.getElementById('confirm').innerHTML = ''
+      }
+    } 
+  }
 }
 </script>
 

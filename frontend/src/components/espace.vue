@@ -40,7 +40,8 @@ export default {
     // Masquage menus "Inscription" et "Connexion" qd utilisateur connecté
     let user = JSON.parse(this.$localStorage.get("user"));
     let change = document.getElementById("change");
-    if (user !== null) {
+    if (user !== null) 
+    {
       change.style.display = "none";
     }
   },

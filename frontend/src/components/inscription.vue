@@ -45,65 +45,66 @@
 <script>
 
 export default {
-    name: 'inscription',
-    data(){
-      return{
-        email:"",
-        username:"",
-        password:"",
-        password2:""   
-       }
-    },
-    methods:{
-      envoi : function () {//Fonction envoyant formulaire d'inscription à API
-        let token = ""
-        if (this.email == "" || this.username == "" || this.password == ""  ){
-          alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')
-        }else if (this.password != this.password2){//Renforcement sécu, mdp x2
-          alert('Les deux mots de passe ne sont pas identiques !')
-        }else {
+  name: 'inscription',
+  data(){
+    return{
+      email:"",
+      username:"",
+      password:"",
+      password2:""   
+    }
+  },
+  methods:{
+    envoi : function () { //Fonction envoyant formulaire d'inscription à API
+      let token = ""
+      if (this.email == "" || this.username == "" || this.password == ""  )
+      { alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')
+      } else if (this.password != this.password2)
+      { //Renforcement sécu, mdp x2
+        alert('Les deux mots de passe ne sont pas identiques !')
+      } else 
+      {
         this.$axios.post('/signup', {
           email: this.email,
           username: this.username,
           password: this.password,
         },
         {
-          headers: {
+          headers: 
+          {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${token}`
-              }
+          }
         })
-       .then ((response) => {
-         console.log('inscription réussie !')
-         let reponse = response.data;
-         let userObject = JSON.stringify(reponse);
-         this.$localStorage.set('user', userObject)
-         let user = JSON.parse(this.$localStorage.get('user'));
-         token = user.token;//Token d'authentification
-         alert('Félicitations! Dès maintenant, vous pouvez vous connecter')
-         window.location.href = "http://localhost:8080//#/connexion"
-         })
-       .catch(() => console.log('Echec de l\'inscription')) 
-        }
-        
-        
-      },
-
-      showdiv: function() {// Affichage encadré pour aider à choisir password
-        document.getElementById('showfocus').style.display = 'block';
-      },
-
-      maskdiv: function() {// Masquage encadré précédent
-        document.getElementById('showfocus').style.display = 'none';
-      },
-      verif: function() {// Vérification password
-        if (this.password != this.password2){
-          document.getElementById('confirm').innerHTML = 'Veuillez entrer le même mot de passe'
-        } else {
-          document.getElementById('confirm').innerHTML = ''
-        }
+      .then ((response) => {
+        console.log('inscription réussie !')
+        let reponse = response.data;
+        let userObject = JSON.stringify(reponse);
+        this.$localStorage.set('user', userObject)
+        let user = JSON.parse(this.$localStorage.get('user'));
+        token = user.token;//Token d'authentification
+        alert('Félicitations! Dès maintenant, vous pouvez vous connecter')
+        window.location.href = "http://localhost:8080//#/connexion"
+      })
+      .catch(() => console.log('Echec de l\'inscription')) 
       }
-    } 
+    },
+    showdiv: function() { // Affichage encadré pour aider à choisir password
+      document.getElementById('showfocus').style.display = 'block';
+    },
+
+    maskdiv: function() { // Masquage encadré précédent
+      document.getElementById('showfocus').style.display = 'none';
+    },
+    verif: function() { // Vérification password
+      if (this.password != this.password2){
+        document.getElementById('confirm').innerHTML = 'Veuillez entrer le même mot de passe'
+      } else 
+      {
+        document.getElementById('confirm').innerHTML = ''
+      }
+    }
+  } 
 }
 </script>
 

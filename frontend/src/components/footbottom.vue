@@ -31,7 +31,6 @@ height: 50px;
 footer{
     background-color: #17a2b8;
     
-    
     @media screen and (min-width: 320px) and (max-width: 830px) {    
         position: fixed;
         bottom: 0;

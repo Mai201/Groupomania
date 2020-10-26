@@ -33,47 +33,37 @@ moment.locale('fr');
 
 
 export default {
-       name:'viewresponse',
-    data() {
-
-      return {
-        data:JSON.parse(this.$localStorage.get('user')),
-        message:"",
-        msg:"",
-        date:"",
-        moment: moment,
-        view:""
-
-      }
-    },
-    mounted (){ 
-        
-        //Appel à l'API du message selectionné 
-        this.$axios.get(`/getonemessage/${idme}`)
-        .then(response => {
-          console.log(response.data)
-          this.msg = response.data
-          
-        
-         
-        })
-        .catch(error => console.log(error))
-
-        //Appel à API des réponses en rapport au premier message 
-        this.$axios.get(`/getresponse/${idme}`)
-        .then(response => {
-          console.log(response.data)
-          this.view = response.data
-        })
-        .catch(error => console.log(error))
-
-    },
-    methods: {
-       
-      
-
-      }
+  name:'viewresponse',
+  data() {
+    return {
+      data:JSON.parse(this.$localStorage.get('user')),
+      message:"",
+      msg:"",
+      date:"",
+      moment: moment,
+      view:""
     }
+  },
+  mounted (){ 
+  //Appel à l'API du message selectionné 
+    this.$axios.get(`/getonemessage/${idme}`)
+    .then(response => {
+      console.log(response.data)
+      this.msg = response.data 
+    })
+    .catch(error => console.log(error))
+
+    //Appel à API des réponses en rapport au premier message 
+    this.$axios.get(`/getresponse/${idme}`)
+    .then(response => {
+      console.log(response.data)
+      this.view = response.data
+    })
+    .catch(error => console.log(error))
+    },
+  methods: {
+  }
+}
 </script>
 
 <style lang="scss" scoped>

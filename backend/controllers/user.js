@@ -30,16 +30,16 @@ exports.createDataTable = (req, res) => {
 exports.signup = (req, res, next) => {
   const user = req.body
   bcrypt.hash(user.password, 10) 
-    .then((hash) => {
-      user.password = hash
-      db.query(`INSERT INTO user SET ?`, user, (err, result, field) => {
-        if (err) {
-          console.log(err)
-          return res.status(400).json("erreur")
-        }
-        return res.status(201).json({message : 'Votre compte a bien été crée !'},)
-      });
+  .then((hash) => {
+    user.password = hash
+    db.query(`INSERT INTO user SET ?`, user, (err, result, field) => {
+      if (err) {
+        console.log(err)
+        return res.status(400).json("erreur")
+      }
+      return res.status(201).json({message : 'Votre compte a bien été crée !'},)
     });
+  });
 },
 
 // Connexion utilisateur
@@ -47,43 +47,41 @@ exports.login = (req, res, next) => {
   const username = req.body.username
 	const password = req.body.password
 	if (username && password) {
-      db.query('SELECT * FROM user WHERE username= ?', username, (error, results, _fields) => {
-        if (results.length > 0) {
-          bcrypt.compare(password, results[0].password)
-          .then((valid) => {
-            if (!valid) {
-              res.status(401).json({ message: 'Utilisateur ou mot de passe inconnu' })
+    db.query('SELECT * FROM user WHERE username= ?', username, (error, results, _fields) => {
+      if (results.length > 0) {
+        bcrypt.compare(password, results[0].password)
+        .then((valid) => {
+          if (!valid) {
+            res.status(401).json({ message: 'Utilisateur ou mot de passe inconnu' })
+          } else 
+          {
+            console.log(username, "s'est connecté")
+            let status = ''
+            if (results[0].isAdmin === 1) 
+            {
+              status = 'admin'
             } else 
             {
-              console.log(username, "s'est connecté")
-              let status = ''
-              if (results[0].isAdmin === 1) 
-              {
-                status = 'admin'
-              } else 
-              {
-                status = 'membre'
-              }
-                res.status(200).json({
-                  userId: results[0].id,
-                  username: results[0].username,
-                  email: results[0].email,
-                  status: status,
-                  token: jwt.sign({ userId: results[0].id, status: status},TOKEN,{ expiresIn: '24h' })
-                })
+              status = 'membre'
             }
+            res.status(200).json({
+              userId: results[0].id,
+              username: results[0].username,
+              email: results[0].email,
+              status: status,
+              token: jwt.sign({ userId: results[0].id, status: status},TOKEN,{ expiresIn: '24h' })
             })
-          } 
-          else 
-          {
-            res.status(401).json({ message: 'Utilisateur ou mot de passe inconnu' })
           }
-        }
-      )
-    } else 
-    {
-      res.status(500).json({ message: "Entrez votre username et votre mot de passe" })
+        })
+      } else 
+      {
+        res.status(401).json({ message: 'Utilisateur ou mot de passe inconnu' })
+      }
     }
+  )} else 
+  {
+    res.status(500).json({ message: "Entrez votre username et votre mot de passe" })
+  }
 },
 
 // Affichage / tous utilisateurs
@@ -127,14 +125,14 @@ exports.updateUser = (req, res, next) => {
   const id = req.params.id
   let passwords = req.body.password
   bcrypt.hash(passwords, 10) 
-    .then((hash) => {
-        passwords = hash
-        db.query(`UPDATE user SET email='${email}', username='${username}', password='${passwords}', isAdmin=${0}  WHERE id=${id}`, (error, results, fields) => {
-          if (error) 
-          {
-            return res.status(400).json(error)
-          }
-          return res.status(200).json({ message: 'Vos informations ont bien été modifiées !' })
-        })
-    });
+  .then((hash) => {
+    passwords = hash
+    db.query(`UPDATE user SET email='${email}', username='${username}', password='${passwords}', isAdmin=${0}  WHERE id=${id}`, (error, results, fields) => {
+      if (error) 
+      {
+        return res.status(400).json(error)
+      }
+      return res.status(200).json({ message: 'Vos informations ont bien été modifiées !' })
+    })
+  });
 }

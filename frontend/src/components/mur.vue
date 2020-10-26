@@ -60,7 +60,7 @@
             </textarea>
       </div>
       <div class="button">
-        <input type="file" @change="onFileChange" name="image" id="image" accept="image/png, image/jpeg, image/gif">
+        <input type="file" @change="onFileChange" name="image" id="image" accept="image/png, image/jpg, image/jpeg, image/gif">
         <button type="submit" id="envoi" class="btn btn-dark">Envoyer</button>
       </div>
     </form>
@@ -114,7 +114,7 @@ export default {
         {
           "Content-type": "application/json",
           Authorization: `Bearer ${token}` //Renvoi du token par API en cas d'authentification
-          }
+        }
       })
       .then(response => {
         console.log(response.data);
@@ -144,7 +144,8 @@ export default {
               image: this.image
             },
             {
-              headers: {
+              headers: 
+              {
                 "Content-type": "application/json",
                 Authorization: `Bearer ${token}`
               }
@@ -176,8 +177,9 @@ export default {
     },
 
     deco: function() {
-      //Déconnection
-      if (window.confirm("Voulez-vous vraiment vous déconnecter ?")) {
+      //Déconnexion
+      if (window.confirm("Voulez-vous vraiment vous déconnecter ?")) 
+      {
         this.$session.remove("user");
         window.location.href = "http://localhost:8080//#/";
       }
@@ -191,7 +193,8 @@ export default {
       if (
         confirm("Etes-vous sûr de vouloir supprimer ce message ?") &&
         confirm("Attention, cela effacera définitivement le message")
-      ) {
+      ) 
+      {
         this.$axios
           .post(
             "/deletemessage",
@@ -205,20 +208,19 @@ export default {
               }
             }
           )
-          .then(() => {
-            console.log("message supprimé");
-            alert("votre message a bien été supprimé");
-            location.reload(true);
-          })
-          .catch(() => {
-            console.log("le message n'a pas été supprimé !");
-          });
+        .then(() => {
+          console.log("message supprimé");
+          alert("votre message a bien été supprimé");
+          location.reload(true);
+        })
+        .catch(() => {
+          console.log("le message n'a pas été supprimé !");
+        });
       }
     },
 
     updatemess: function(idmess) {
       //Fonction permettant à utilisateur de modifier message
-
       let imess = idmess;
 
       window.location.href = `http://localhost:8080//#/res?id=${imess}`;
@@ -227,7 +229,6 @@ export default {
 
     response: function(idmess) {
       //Fonction permettant à utilisateur de répondre à message posté
-
       let irep = idmess;
 
       window.location.href = `http://localhost:8080//#/reponses?id=${irep}`;
