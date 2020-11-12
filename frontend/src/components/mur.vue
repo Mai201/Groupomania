@@ -12,7 +12,7 @@
       <div id="messdiv" class="msg" v-for="mess in msg" :key="mess.idMESSAGES">
         <p class="nameus">{{mess.username}}</p>
         <p class="text">{{mess.message}}</p>
-        <img :src="'http://localhost:3000/images/' + mess.image" alt="image">
+        <img :src=" mess.image" alt="image">
         <p class="datt">{{moment(mess.created_at).fromNow()}}</p>
         <button
           @click="updatemess(mess.idMESSAGES)"
@@ -128,6 +128,10 @@ export default {
       let token = this.data.token;
       let idUSERS = this.data.userId;
       let userName = this.data.username;
+
+      // var formTog = document.getElementById('formtog')
+      // formData = new FormData(formTog);
+
       if (this.message.length ===0) {
         alert(
           "Vous n'avez rien écrit: vous ne pouvez pas envoyer un message vide !"
@@ -136,6 +140,7 @@ export default {
         this.$axios
           .post(
             "/postmessage",
+          //  formData,
             {
               token: token,
               idUSERS: idUSERS,
@@ -146,9 +151,10 @@ export default {
             {
               headers: 
               {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                "Content-type": "multipart/form-data"
               }
+            //  ,body: formData
             }
           )
           .then(() => {

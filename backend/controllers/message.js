@@ -50,7 +50,9 @@ exports.getoneMessage = (req, res, next) => {
 
 // Poster message 
 exports.postmessage = (req, res, next) => {
-  if (!req.body.image)
+  console.log(req.file);
+  
+  if (!req.file)
   {
     const message=
     {
@@ -80,7 +82,7 @@ exports.postmessage = (req, res, next) => {
       {
         return res.status(400).json({ error })
       }
-      return res.status(201).json({ message: 'Votre message a été posté !' })
+      return res.status(201).json({ message: 'Votre message a été posté avec une image !' })
     })
   }
 },
