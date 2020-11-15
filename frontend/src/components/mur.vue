@@ -12,7 +12,7 @@
       <div id="messdiv" class="msg" v-for="mess in msg" :key="mess.idMESSAGES">
         <p class="nameus">{{mess.username}}</p>
         <p class="text">{{mess.message}}</p>
-        <img :src=" mess.image" alt="image">
+        <img :src="mess.image" alt="image">
         <p class="datt">{{moment(mess.created_at).fromNow()}}</p>
         <button
           @click="updatemess(mess.idMESSAGES)"
@@ -60,7 +60,7 @@
             </textarea>
       </div>
       <div class="button">
-        <input type="file" @change="onFileChange" name="image" id="image" accept="image/png, image/jpg, image/jpeg, image/gif">
+        <input type="file" @change="onSelectedFile($event)" name="image" id="image" accept="image/png, image/jpg, image/jpeg, image/gif">
         <button type="submit" id="envoi" class="btn btn-dark">Envoyer</button>
       </div>
     </form>
@@ -127,34 +127,27 @@ export default {
       //Fonction qui permet d'envoyer un message
       let token = this.data.token;
       let idUSERS = this.data.userId;
-      let userName = this.data.username;
-
-      // var formTog = document.getElementById('formtog')
-      // formData = new FormData(formTog);
-
+      let username = this.data.username;
       if (this.message.length ===0) {
         alert(
           "Vous n'avez rien écrit: vous ne pouvez pas envoyer un message vide !"
         );
       } else {
+        let formData = new FormData();
+        formData.append("idUSERS", idUSERS)
+        formData.append("username", username)
+        formData.append("message", this.message)
+        formData.append("image", this.image)
+        
         this.$axios
           .post(
-            "/postmessage",
-          //  formData,
-            {
-              token: token,
-              idUSERS: idUSERS,
-              username: userName,
-              message: this.message,
-              image: this.image
-            },
+            "/postmessage", formData,
             {
               headers: 
               {
-                Authorization: `Bearer ${token}`,
-                "Content-type": "multipart/form-data"
+                "Content-type": "multipart/form-data",
+                Authorization: `Bearer ${token}`
               }
-            //  ,body: formData
             }
           )
           .then(() => {
@@ -169,17 +162,9 @@ export default {
       }
     },
 
-    onFileChange: function(e) {
-      const files = e.target.files || e.dataTransfer.files;
-      if(files.length === 0)
-      {
-        return;
-      }
-      const reader = new FileReader();    
-      reader.readAsDataURL(files[0]);
-      reader.onload = () => {
-        this.image = reader.result
-      }
+    onSelectedFile(event) {
+      console.log(event.target.files[0]);
+      this.image = event.target.files[0];
     },
 
     deco: function() {

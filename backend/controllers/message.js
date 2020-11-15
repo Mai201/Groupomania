@@ -51,15 +51,15 @@ exports.getoneMessage = (req, res, next) => {
 // Poster message 
 exports.postmessage = (req, res, next) => {
   console.log(req.file);
-  
+
   if (!req.file)
   {
     const message=
     {
       idUSERS:req.body.idUSERS,
+      username:req.body.username,
       message:req.body.message,
-      image: null,
-      username:req.body.username
+      image: "http://localhost:3000/images/default.png"
     }
     db.query(`INSERT INTO messages SET ?`, message, (error, result, field) => {
       if (error) 
@@ -73,9 +73,9 @@ exports.postmessage = (req, res, next) => {
     const message=
     {
       idUSERS:req.body.idUSERS,
+      username:req.body.username,
       message:req.body.message,
-      image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-      username:req.body.username
+      image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     }
     db.query(`INSERT INTO messages SET ?`, message, (error, result, field) => {
       if (error) 
