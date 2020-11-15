@@ -62,31 +62,33 @@ export default {
   methods:{
     changeuser : function () { //Fonction envoyant changements utilisateur au serveur
       let token = this.data.token
-      if (this.email == "" || this.username == "" || this.password == ""  ){
-        alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')
-      } else if (this.password != this.password2){
-        alert('Les deux mots de passe ne sont pas identiques !')
-      } else 
+      if(confirm('Voulez-vous vraiment modifier votre compte ?'),confirm('Attention si modification de pseudo: vous ne pourrez plus modifier/effacer vos anciens messages'))
       {
-        this.$axios.post(`/updateuser/${id}`, {
-          email: this.email,
-          username: this.username,
-          password: this.password,
-        },
+        if (this.email == "" || this.username == "" || this.password == ""  ){
+          alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')
+        } else if (this.password != this.password2){
+          alert('Les deux mots de passe ne sont pas identiques !')
+        } else 
         {
-          headers: 
+          this.$axios.post(`/updateuser/${id}`, {
+            email: this.email,
+            username: this.username,
+            password: this.password,
+          },
           {
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        .then (() => {
-        console.log('vos informations ont bien été modifiées !')
-        alert('vos informations ont bien été modifiées !')
-        window.location.href = "http://localhost:8080//#/compte"
-        })
-        .catch(() => console.log('Erreur: les informations n\'ont pas été modifiées')) 
-      }    
+            headers: 
+            {
+              'Content-type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then (() => {
+          alert('vos informations ont bien été modifiées !')
+          window.location.href = "http://localhost:8080//#/compte"
+          })
+          .catch(() => console.log('Erreur: les informations n\'ont pas été modifiées')) 
+        }
+      }  
     },
     deco: function(){ //Déconnexion
       if(window.confirm('Voulez-vous vraiment vous déconnecter ?')){

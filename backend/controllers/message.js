@@ -1,7 +1,6 @@
 const db = require('../mysqlconfig'); // Configuration informations de connexion mysql
 const dotenv = require("dotenv");
 const { createPool } = require('mysql');
-// const fs = require('fs'); à faire (ajouter pour updateMessage et deleteMessage) 
 
 dotenv.config({ path: './.env' });
 

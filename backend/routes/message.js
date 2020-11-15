@@ -14,13 +14,13 @@ router.get('/createreponse', messageCtlr.createresponsetable)
 router.get('/getmessages', auth, messageCtlr.getMessages);
 router.get('/getonemessage/:id', auth, messageCtlr.getoneMessage);
 router.post('/postmessage', auth, multer, messageCtlr.postmessage); 
-router.post('/deletemessage', auth, messageCtlr.deleteMessage); // ajouter fs (pas besoin de multer)
-router.post('/updatemessage', auth, messageCtlr.updateMessage); // ajouter multer + fs
+router.post('/deletemessage', auth, messageCtlr.deleteMessage);
+router.post('/updatemessage', auth, messageCtlr.updateMessage);
 
 // pour réponses aux messages
-router.get('/getresponse/:id', auth, messageCtlr.getResponse); // (auth à implémenter dans axios)
-router.get('/getallresponses' , authAdmin, messageCtlr.getAllResponses); // présent dans dashadmin
+router.get('/getresponse/:id', auth, messageCtlr.getResponse); 
+router.get('/getallresponses' , authAdmin, messageCtlr.getAllResponses); // seulement présent dans dashadmin
 router.post('/responsemessage', auth, messageCtlr.responseMessage); 
-router.post('/deleteresponse', auth, messageCtlr.deleteResponse); // comme sur mur, faire distinction membre/admin sur dashadmin
+router.post('/deleteresponse', auth, messageCtlr.deleteResponse); 
 
 module.exports = router;

@@ -6,6 +6,7 @@
         <div id="messdiv" class="msg"  v-for="mess in msg" :key="mess.idMESSAGES">
           <p class="nameus">{{mess.username}}</p>  
           <p class="text">{{mess.message}}</p>
+          <img :src="mess.image" alt="image">
           <p class="datt">{{moment(mess.created_at).fromNow()}}</p>
         </div>
       </div>
@@ -16,7 +17,6 @@
             <textarea  class="form-control" name="message" id="message" cols="50" rows="5" v-model= "message"></textarea>
           </label>
         </div>
-        <input type="file" @change="onFileChange" name="image" id="image">
         <button  type="submit" id="envoi" class="btn btn-dark">Envoyer</button>
       </form> 
     </div> 
@@ -39,6 +39,7 @@ export default {
     return {
       data:JSON.parse(this.$localStorage.get('user')),
       message:"",
+      image:"",
       msg:"",
       date:"",
       moment: moment,
@@ -48,7 +49,14 @@ export default {
 
   mounted (){ 
   //Appel à API pour affichage du message à modifier 
-    this.$axios.get(`/getonemessage/${idme}`)
+    let token= this.data.token;
+    this.$axios.get(`/getonemessage/${idme}`, {
+      headers: 
+      {
+          'Content-type': 'application/json',
+          'Authorization' : `Bearer ${token}`
+      }
+    })
     .then(response => 
     {
       console.log(response.data)
@@ -114,6 +122,10 @@ span{
   text-transform: uppercase;
 }
 
+img {
+  height: 80px;
+}
+
 .text, .datt{
   color: #FFF;
 }
@@ -122,7 +134,7 @@ span{
   border: 1px solid lightgray;
   width: 50%;
   line-height: 15px;
-  height:110px;
+  height:180px;
   position: relative;
   top: 20px;
   margin-right: auto;
@@ -185,9 +197,14 @@ h5{
   top: 30px;
 }
 
+#image {
+  margin-top: 90px;
+  margin-left: 10px;
+}
+
 .form-group{
   position: relative;
-  top: 150px;
+  top: 130px;
 }
 
 #deco{

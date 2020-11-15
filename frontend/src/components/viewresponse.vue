@@ -7,6 +7,7 @@
                 <div id="messdiv" class="msg"  v-for="mess in msg" :key="mess.idMESSAGES">
                     <p class="nameus">{{mess.username}}</p>  
                     <p class="text">{{mess.message}}</p>
+                    <img :src="mess.image" alt="image">
                     <p class="datt">{{moment(mess.created_at).fromNow()}}</p>
                 </div>
             </div>
@@ -38,6 +39,7 @@ export default {
     return {
       data:JSON.parse(this.$localStorage.get('user')),
       message:"",
+      image:"",
       msg:"",
       date:"",
       moment: moment,
@@ -45,8 +47,15 @@ export default {
     }
   },
   mounted (){ 
-  //Appel à l'API du message selectionné 
-    this.$axios.get(`/getonemessage/${idme}`)
+  //Appel à l'API du message selectionné
+    let token= this.data.token; 
+    this.$axios.get(`/getonemessage/${idme}`,{
+      headers: 
+      {
+        'Content-type': 'application/json',
+        'Authorization' : `Bearer ${token}`
+      } 
+    })
     .then(response => {
       console.log(response.data)
       this.msg = response.data 
@@ -54,7 +63,13 @@ export default {
     .catch(error => console.log(error))
 
     //Appel à API des réponses en rapport au premier message 
-    this.$axios.get(`/getresponse/${idme}`)
+    this.$axios.get(`/getresponse/${idme}`, {
+      headers: 
+      {
+        'Content-type': 'application/json',
+        'Authorization' : `Bearer ${token}`
+      } 
+    })
     .then(response => {
       console.log(response.data)
       this.view = response.data
@@ -80,6 +95,10 @@ span{
   text-transform: uppercase;
 }
 
+img {
+  height: 80px;
+}
+
 .text, .datt{
   color: #FFF;
 }
@@ -88,7 +107,7 @@ span{
   border: 1px solid lightgray;
   width: 50%;
   line-height: 15px;
-  height:110px;
+  height:180px;
   position: relative;
   top: 20px;
   margin-right: auto;
@@ -206,6 +225,11 @@ h5{
 #form{
   position: relative;
   bottom: 150px;
+}
+
+#image {
+  margin-top: 90px;
+  margin-left: 10px;
 }
 
 </style>
