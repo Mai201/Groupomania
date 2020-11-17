@@ -30,74 +30,82 @@ Vue.use(VueRouter)
     // deuxieme route pour home
     component: () => import('../views/home.vue')
 
-  }
-  ,
+  },
   {
     path: '/mur',
     name: 'mur',
     // route pour accès au mur
-    component: () => import('../views/mur.vue'),
-    // ajouter require auth ?
-   
-
+    component: () => import('../views/mur.vue')
   },
   {
     path: '/compte',
     name: 'compte',
     // route pour accès au compte
     component: () => import('../views/compte.vue')
-    // ajouter require auth ? 
-
   },
   {
     path: '/reponses',
     name: 'reponses',
     // route pour accès aux réponses
     component: () => import('../views/reponses.vue')
-    // ajouter require auth ?
   },
   {
     path: '/res',
     name: 'res',
     // route pour accès aux modifs de réponses 
     component: () => import('../views/res.vue')
-    // ajouter require auth ?
-    
   },
   {
     path: '/dashadmin',
     name: 'dashadmin',
     // route pour tableau de bord admin
-    component: () => import('../views/dashadmin.vue')
+    component: () => import('../views/dashadmin.vue'),
+    
     // seulement accès admin ici /!\ 
-    // suivre infos https://serversideup.net/vuejs-route-permissions-security-and-admin-section/
-    // beforeEnter: requireAuthAdmin,
-    // meta: {
-    //   permission: 'admin'
-    // }
+    beforeEnter: (to, from, next) => {
+      let user = JSON.parse(localStorage.getItem("user"));
+      let status = user.status;
+      console.log(status);
+      if(status !== "admin")
+      {
+        alert('accès refusé: réservé aux admins')
+        return next({ name: 'mur'})
+      }
+      next()
+    }
   },
   {
     path: '/viewresp',
     name: 'viewresp',
     // route pour afficher fil de messages
     component: () => import('../views/viewresp.vue')
-    // ajouter require auth ?
-
   },
   {
     path: '/updateuser',
     name: 'updateuser',
     // route pour modif infos utilisateur
     component: () => import('../views/updateuser.vue')
-    // ajouter require auth ?
   }
 ]
 
 
-
-
 const router = new VueRouter({
   routes
+})
+
+// naviguation guard pour toutes les routes
+router.beforeEach((to, from, next) => {
+  if (to.name != 'inscription' && to.name != 'WelcomePage' && to.name != 'connexion') 
+  {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let userId = user.userId;
+    let token = user.token;
+    if (!userId && !token) 
+    {
+      return next({ name: 'WelcomePage'})
+    }
+  }
+  next()
 })
 
 export default router
