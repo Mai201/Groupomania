@@ -177,8 +177,9 @@ export default {
     },
 
     deletemess: function(delid) {
-      //Fonction permettant à utilisateur de supprimer un message
+      //Fonction permettant à utilisateur de supprimer un message (avec image)
       let token = this.data.token;
+      let image = this.msg[0].image;
       let idmess = delid;
 
       if (
@@ -190,7 +191,8 @@ export default {
           .post(
             "/deletemessage",
             {
-              id: idmess
+              id: idmess,
+              image: image
             },
             {
               headers: {

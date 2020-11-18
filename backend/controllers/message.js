@@ -1,6 +1,6 @@
 const db = require('../mysqlconfig'); // Configuration informations de connexion mysql
 const dotenv = require("dotenv");
-const { createPool } = require('mysql');
+const fs = require('fs');
 
 dotenv.config({ path: './.env' });
 
@@ -49,7 +49,6 @@ exports.getoneMessage = (req, res, next) => {
 
 // Poster message 
 exports.postmessage = (req, res, next) => {
-  console.log(req.file);
 
   if (!req.file)
   {
@@ -88,12 +87,32 @@ exports.postmessage = (req, res, next) => {
 
 // Effacer message
 exports.deleteMessage = (req, res, next) => {
-  db.query('DELETE FROM messages WHERE idMESSAGES= ?', req.body.id, (error, results, fields) => {
-    if (error) {
+  // Image à supprimer du réseau (si image n'est pas celle par défaut)
+  if (req.body.image != 'http://localhost:3000/images/default.png') 
+  {
+    const filename = req.body.image.split('/images/')[1];
+    // Suppression de l'image
+    fs.unlink(`images/${filename}`, () => {
+      db.query('DELETE FROM messages WHERE idMESSAGES= ?', req.body.id, (error, results, fields) => {
+      if (error) 
+      {
+        return res.status(400).json(error)
+      }
+      return res.status(200).json({ message: 'Votre message a bien été supprimé !' })
+      })
+    })
+  }
+  else
+  {
+    db.query('DELETE FROM messages WHERE idMESSAGES= ?', req.body.id, (error, results, fields) => 
+    {
+    if (error) 
+    {
       return res.status(400).json(error)
     }
     return res.status(200).json({ message: 'Votre message a bien été supprimé !' })
-  })
+    })
+  }
 },
 
 // Modifier message 
