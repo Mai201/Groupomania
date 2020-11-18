@@ -100,7 +100,7 @@ export default {
           }
         })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.msg = response.data;
       })
       .catch(error => console.log(error));
@@ -117,7 +117,7 @@ export default {
         }
       })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.user = response.data;
       })
       .catch(error => console.log(error));
@@ -267,7 +267,7 @@ img {
   margin-top: 60px;
 }
 .form-group {
-  margin-top: 80px;
+  margin-top: 100px;
   height: 20px;
 }
 
@@ -294,7 +294,7 @@ img {
   line-height: 15px;
   height: 180px;
   position: relative;
-  top: 70px;
+  top: 40px;
   margin-right: auto;
   background-color: #392546;
   border-radius: 5px;
@@ -302,8 +302,7 @@ img {
   margin-top: 20px;
   margin-bottom: 100px;
   @media screen and (min-width: 320px) and (max-width: 830px) {
-    width: 95%;
-    height: 150px;
+    width: 75%;
   }
 }
 
@@ -334,7 +333,7 @@ img {
 
 h4 {
   position: relative;
-  top: 70px;
+  top: 80px;
 }
 
 h5 {

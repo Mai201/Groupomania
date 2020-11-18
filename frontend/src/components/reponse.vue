@@ -60,7 +60,7 @@ export default {
       }        
     })
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       this.msg = response.data})
       .catch(error => console.log(error))
   },
@@ -119,6 +119,9 @@ export default {
       margin-left: auto;
       margin-right: auto;
     }
+    h3 {
+      margin-top:30px;
+    }
   }
 
 span{
@@ -147,7 +150,7 @@ img {
   margin-top: 10px;
   margin-bottom: 80px;
   @media screen and (min-width: 320px) and (max-width: 830px){
-
+    width: 75%;
   }
 }
 

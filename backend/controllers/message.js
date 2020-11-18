@@ -119,8 +119,8 @@ exports.deleteMessage = (req, res, next) => {
 exports.updateMessage = (req, res, next) => {
   const message = req.body.message
   const id = req.body.id
-  console.log(message)
-  console.log(id)
+  // console.log(message)
+  // console.log(id)
   db.query(`UPDATE messages SET message='${message}' WHERE idMESSAGES=${id}`, (error, results, fields) => {
     if (error) {
       return res.status(400).json(error)

@@ -122,7 +122,7 @@ export default {
         }
     })
     .then(response => {
-    console.log(response.data)
+    // console.log(response.data)
     this.msg = response.data
     })
     .catch(error => console.log(error))
@@ -137,7 +137,7 @@ export default {
         }
     })
     .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         this.res = response.data
     })
     .catch(error => console.log(error))

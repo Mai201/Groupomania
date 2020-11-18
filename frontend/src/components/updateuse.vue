@@ -62,7 +62,7 @@ export default {
   methods:{
     changeuser : function () { //Fonction envoyant changements utilisateur au serveur
       let token = this.data.token
-      if(confirm('Voulez-vous vraiment modifier votre compte ?'),confirm('Attention si modification de pseudo: vous ne pourrez plus modifier/effacer vos anciens messages'))
+      if(confirm('Voulez-vous vraiment modifier votre compte ?'),confirm('Attention, suite à votre déconnexion, vous ne pourrez plus modifier/effacer vos anciens messages'))
       {
         if (this.email == "" || this.username == "" || this.password == ""  ){
           alert('Veuillez remplir tous les champs avant d\'envoyer le formulaire !')

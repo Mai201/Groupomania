@@ -65,7 +65,7 @@ Vue.use(VueRouter)
     beforeEnter: (to, from, next) => {
       let user = JSON.parse(localStorage.getItem("user"));
       let status = user.status;
-      console.log(status);
+      // console.log(status);
       if(status !== "admin")
       {
         alert('accès refusé: réservé aux admins')

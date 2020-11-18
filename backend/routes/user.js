@@ -24,7 +24,7 @@ router.post('/login', dataCtlr.login);
 router.get('/getusers', authAdmin, dataCtlr.getUsers); // présent dans dashadmin
 router.get('/getoneuser/:id', auth, dataCtlr.getOneUser);
 
-router.post('/deleteUser', auth, dataCtlr.deleteUser); // implémenter distinction sur axios membre/admin (dashadmin)
+router.post('/deleteUser', auth, dataCtlr.deleteUser); 
 router.post('/updateuser/:id', auth, dataCtlr.updateUser);
 
 module.exports = router;

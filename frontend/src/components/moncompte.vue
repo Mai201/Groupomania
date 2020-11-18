@@ -45,7 +45,7 @@ export default {
             }
         })
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           this.user = response.data
         
          
@@ -107,6 +107,7 @@ h2{
     @media screen and (max-width: 1024px) {
         font-size: 1.8em;
         bottom:30px;
+        margin-top:30px;
     }
 }
 

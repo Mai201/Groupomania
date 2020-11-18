@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, TOKEN);
     const userId = decodedToken.userId;
     const status = decodedToken.status;
-    console.log(status);
+    // console.log(status);
 
     if (req.body.userId && req.body.userId != userId || status !== "admin") {
       throw 'Not the owner neither admin';
