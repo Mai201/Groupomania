@@ -85,6 +85,7 @@ export default {
         userId:"",
         usr:"",
         msg:"",
+        image:"",
         test:"",
         deletid:"",
         res:""
@@ -177,15 +178,17 @@ export default {
             }
         },
         deletemsg: function(del) { //Fonction de suppression des messages 
-            let token = this.data.token
-            let deletid = del
+            let token = this.data.token;
+            let image = this.msg[0].image;
+            let deletid = del;
 
             if(confirm('Voulez-vous vraiment supprimer le message ?'),confirm('Attention, cette opération est irreversible !'))
             {
                 console.log(deletid)
                 this.$axios.post(`/deletemessage`, 
                 {
-                    id:deletid
+                    id:deletid,
+                    image: image
                 },
                 {
                     headers: {
