@@ -29,17 +29,33 @@ exports.createDataTable = (req, res) => {
 // Inscription utilisateur
 exports.signup = (req, res, next) => {
   const user = req.body
-  bcrypt.hash(user.password, 10) 
-  .then((hash) => {
-    user.password = hash
-    db.query(`INSERT INTO user SET ?`, user, (err, result, field) => {
-      if (err) {
-        console.log(err)
-        return res.status(400).json("erreur")
-      }
-      return res.status(201).json({message : 'Votre compte a bien été crée !'},)
+  // verification regex pour valider inputs + correspond à front-end
+  let emailSyntaxe = /[a-zâäàéèùêëîïôöçñA-Z0-9.-_]+[@]{1}[a-zA_Z0-9.-_]+[.]{1}[a-z]{2,4}/;
+  let usernameSyntaxe = /[a-zâäàéèùêëîïôöçñA-Z-0-9\s]{3,25}/;
+  let passwordSyntaxe = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})/;
+  
+  let verification = [
+    emailSyntaxe.test(user.email),
+    usernameSyntaxe.test(user.username),
+    passwordSyntaxe.test(user.password)
+  ]
+  
+  if(verification.every(Boolean)) {
+    bcrypt.hash(user.password, 10) 
+    .then((hash) => {
+      user.password = hash
+      db.query(`INSERT INTO user SET ?`, user, (err, result, field) => {
+        if (err) {
+          console.log(err)
+          return res.status(400).json("erreur")
+        }
+        return res.status(201).json({message : 'Votre compte a bien été crée !'},)
+      });
     });
-  });
+  } else 
+  {
+    return res.status(500).json({ message: "les données ne respectent pas les conditions de forme"})
+  }
 },
 
 // Connexion utilisateur
