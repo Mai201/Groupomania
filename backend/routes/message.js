@@ -3,7 +3,6 @@ const router = express.Router();
 const messageCtlr = require('../controllers/message');
 const auth = require('../middleware/auth');
 const authAdmin = require('../middleware/authAdmin');
-const isOwnerOrAdmin = require('../middleware/isOwnerOrAdmin');
 const multer = require('../middleware/multer-config'); 
 
 //Routes pour les posts
@@ -15,7 +14,7 @@ router.get('/createreponse', messageCtlr.createresponsetable)
 router.get('/getmessages', auth, messageCtlr.getMessages);
 router.get('/getonemessage/:id', auth, messageCtlr.getoneMessage);
 router.post('/postmessage', auth, multer, messageCtlr.postmessage); 
-router.post('/deletemessage', auth, isOwnerOrAdmin, messageCtlr.deleteMessage); // seulement pour propriétaire ou admin
+router.post('/deletemessage', auth, messageCtlr.deleteMessage); 
 router.post('/updatemessage', auth, messageCtlr.updateMessage); // pas droit spé pour admin
 
 // pour réponses aux messages
